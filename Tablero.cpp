@@ -1,72 +1,59 @@
 #include "Tablero.h"
 #include <iostream>
 
-Tablero::Tablero(int fila, int columna) {
+Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad) {
 
-    this->fila = fila;
-    this->columna = columna;
-    int valor;
+    this->numeroDeFila = fila;
+    this->numeroDeColumna = columna;
+    this->numeroDeProfundidad = profundidad;
 
-    Lista<int> *columnaPrincipal = new Lista<int>();
-    this->filaPrincipal = new Lista<int>*();
+    this->fila = new Lista< Lista< Lista<int>* >* >();
 
-    for (int i = 0; i < fila; i++)
-    {
-        this->filaPrincipal[i]->agregar(*columnaPrincipal);
+    for (int x = 1; x <= this->numeroDeColumna; x++) {
+        
+        Lista< Lista<int>* >* columna = new Lista< Lista<int>* >();
+        
+
+        for (int y = 1; y <= this->numeroDeFila; y++) {
+
+            Lista<int>* profundidad = new Lista<int>();
+
+            for (int z = 1; z <= this->numeroDeProfundidad; z++) {
+                
+                profundidad->agregar(8,z);
+                std::cout << "profundidad " << profundidad->obtener(z) << std::endl;
+                std::cout << std::endl;
+            }
+            
+            columna->agregar(profundidad,y);
+            std::cout << "columna " << columna->obtener(y) << std::endl;
+            std::cout << std::endl;
+                
+        }
+
+        this->fila->agregar(columna,x);
+        std::cout << "fila " << this->fila->obtener(x) << std::endl;
+        std::cout << std::endl;
+        std::cout << "-----------------------" << std::endl;
+        std::cout << std::endl;
+
     }
+    
+};
 
-    for (int i = 0; i < fila; i++)
-    {
-        for (int j = 0; j < columna; j++)
-        {
-            this->filaPrincipal[i]->obtener(j);
+void Tablero::mostrarTablero() {
+
+    for (int x = 1; x <= this->numeroDeColumna; x++) {
+        
+        for (int y = 1; y <= this->numeroDeFila; y++) {
+            
+            for (int z = 1; z <= this->numeroDeProfundidad; z++) {
+
+                std::cout << this->fila->obtener(x)->obtener(y)->obtener(z) << std::endl;
+            }
+            
         }
         
     }
-    
-    for (int i = 0; i < fila; i++)
-    {
-        for (int j = 0; j < j; j++)
-        {
-            std::cout << this->filaPrincipal[i]->obtener(j) << std::endl;
-        }
-        
-    }
-    
 
-}
-
-Tablero::Tablero() {
-
-    this->fila = 2;
-    this->columna = 2;
-    int valor;
-
-    Lista<int>* columnaPrincipal = new Lista<int>();
-    *this->filaPrincipal = new Lista<int>();
-
-    for (int i = 0; i < fila; i++)
-    {
-        this->filaPrincipal[i]->agregar(*columnaPrincipal);
-    }
-
-    for (int i = 0; i < fila; i++)
-    {
-        for (int j = 0; j < j; j++)
-        {
-            this->filaPrincipal[i]->asignar(8,j);
-        }
-        
-    }
-    
-    for (int i = 0; i < fila; i++)
-    {
-        for (int j = 0; j < j; j++)
-        {
-            std::cout << this->filaPrincipal[i]->obtener(j) << std::endl;
-        }
-        
-    }
-    
-
-}
+};
