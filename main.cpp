@@ -1,5 +1,6 @@
 #include "Tablero.h"
 #include "Jugador.h"
+#include "Mazo.h"
 #include <iostream>
 
 int main() {
