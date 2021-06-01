@@ -2,19 +2,38 @@
 #define TABLERO_H_
 
 #include "Lista.h"
-
-typedef Lista< Lista< Lista<int>* >* >* lista; 
+#include "Jugador.h"
+#include "Celda.h"
 
 class Tablero {
 
-    
-
     private:
 
-        lista fila;
+        Lista< Lista< Lista<Celda>* >* >* fila;
         unsigned int numeroDeFila;
         unsigned int numeroDeColumna;
         unsigned int numeroDeProfundidad;
+
+
+        /*  Ver para uso recursivo
+        *   Discutir el tema de un tablero espejo para recorrer con la misma 
+        *   funcion verificarDiagonal el las diagonales de derecha a izquierda
+        */
+
+        /* Pre: Recibe posiciones finales validas y el jugador en turno
+        *  Pos: Recorre una cara del tablero y verifica fichas horizontalmente
+        */
+        void verificarHorizontal(unsigned int posicionFinalHorizontal, unsigned int posicionFinalVertical, Jugador jugador);
+
+        /* Pre: Recibe posiciones finales validas y el jugador en turno
+        *  Pos: Recorre una cara del tablero y verifica fichas verticalmente
+        */
+        void verificarVertical(unsigned int posicionFinalVertical, unsigned int posicionFinalHorizontal, Jugador jugador);
+
+        /* Pre: Recibe posiciones finales validas y el jugador en turno
+        *  Pos: Recorre una cara del tablero y verifica fichas en diagonal
+        */
+        void verificarDiagonal(unsigned int posicionFinalHorizontal, unsigned int posicionFinalVertical, Jugador jugador);
 
     public:
 
@@ -24,14 +43,39 @@ class Tablero {
         Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad);
 
         /* Pre:
-        *  Pos:
+        *  Pos: Muestra el tablero por consola
+        void mostrarTablero();
         */
-        Tablero();
+
+       /* Pre:
+        *  Pos: Muestra el tablero por consola de la cara XY
+        */
+        void mostrarTableroXY();
 
         /* Pre:
-        *  Pos: muestra el tablero por consola
+        *  Pos: Muestra el tablero por consola de la cara YZ
         */
-        void mostrarTablero();
+        void mostrarTableroYZ();
+
+        /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
+        *  Pos: Muestra el tablero por consola de la cara YZ
+        */
+        void marcarTablero(unsigned int columna, unsigned int profundidad, Jugador jugador);
+
+        /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
+        *  Pos: Verifica si un jugador gana
+        */
+        void verificarGanador(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugador);
+
+        /* Pre:
+        *  Pos: Crea un bitmap del tablero
+        */
+        void crearBitMap();
+        
+        /* Pre:
+        *  Pos: Detruye el tablero
+        */
+        ~Tablero();
 
 };
 
