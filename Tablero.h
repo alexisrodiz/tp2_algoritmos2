@@ -9,7 +9,7 @@ class Tablero {
 
     private:
 
-        Lista< Lista< Lista<Celda>* >* >* fila;
+        Lista< Lista< Lista<Celda*>* >* >* fila;
         unsigned int numeroDeFila;
         unsigned int numeroDeColumna;
         unsigned int numeroDeProfundidad;
@@ -44,8 +44,11 @@ class Tablero {
 
         /* Pre:
         *  Pos: Muestra el tablero por consola
-        void mostrarTablero();
+        *
+        *  Es solo de prueba -> borrar luego
         */
+        void mostrarTablero();
+        
 
        /* Pre:
         *  Pos: Muestra el tablero por consola de la cara XY

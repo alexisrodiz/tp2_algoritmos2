@@ -1,6 +1,8 @@
 #ifndef CELDA_H_
 #define CELDA_H_
 
+#include <string>
+
 class Celda {
 
     private:

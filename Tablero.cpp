@@ -7,7 +7,7 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     this->numeroDeColumna = columna;
     this->numeroDeProfundidad = profundidad;
 
-    this->fila = new Lista< Lista< Lista<int>* >* >();
+    this->fila = new Lista< Lista< Lista<Celda*>* >* >();
 
     for (int x = 1; x <= this->numeroDeColumna; x++) {
         
