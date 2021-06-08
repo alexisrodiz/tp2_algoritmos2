@@ -11,16 +11,17 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
 
     for (int x = 1; x <= this->numeroDeColumna; x++) {
         
-        Lista< Lista<int>* >* columna = new Lista< Lista<int>* >();
+        Lista< Lista<Celda*>* >* columna = new Lista< Lista<Celda*>* >();
         
 
         for (int y = 1; y <= this->numeroDeFila; y++) {
 
-            Lista<int>* profundidad = new Lista<int>();
+            Lista<Celda*>* profundidad = new Lista<Celda*>();
 
             for (int z = 1; z <= this->numeroDeProfundidad; z++) {
                 
-                profundidad->agregar(8,z);
+                Celda* celda = new Celda();
+                profundidad->agregar(celda,z);
                 std::cout << "profundidad " << profundidad->obtener(z) << std::endl;
                 std::cout << std::endl;
             }
