@@ -30,7 +30,6 @@ int main() {
 	fichasTotal = nroJugador.obtenerFichasTotal();
 	fichasJugador2 = nroJugador.obtenerFicha();
 
-
     Tablero* nuevoTablero = new Tablero(fil,col,prof);
     nuevoTablero->mostrarTablero();
 

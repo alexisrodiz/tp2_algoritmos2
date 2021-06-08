@@ -22,35 +22,27 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
                 
                 Celda* celda = new Celda();
                 profundidad->agregar(celda,z);
-                std::cout << "profundidad " << profundidad->obtener(z) << std::endl;
-                std::cout << std::endl;
+
             }
             
             columna->agregar(profundidad,y);
-            std::cout << "columna " << columna->obtener(y) << std::endl;
-            std::cout << std::endl;
                 
         }
 
         this->fila->agregar(columna,x);
-        std::cout << "fila " << this->fila->obtener(x) << std::endl;
-        std::cout << std::endl;
-        std::cout << "-----------------------" << std::endl;
-        std::cout << std::endl;
-
     }
     
 };
 
 void Tablero::mostrarTablero() {
 
-    for (int x = 1; x <= this->numeroDeColumna; x++) {
+    for (int x = 1; x <= obtenerNumeroDeColumna(); x++) {
         
-        for (int y = 1; y <= this->numeroDeFila; y++) {
+        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
             
-            for (int z = 1; z <= this->numeroDeProfundidad; z++) {
+            for (int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
 
-                std::cout << this->fila->obtener(x)->obtener(y)->obtener(z) << std::endl;
+                std::cout << this->fila->obtener(x)->obtener(y)->obtener(z)->obtenerValorDeCelda() << std::endl;
             }
             
         }
@@ -58,3 +50,81 @@ void Tablero::mostrarTablero() {
     }
 
 };
+
+void Tablero::mostrarTableroXY() {
+
+    unsigned int posicionFinalEnZ = obtenerNumeroDeProfundidad();
+    unsigned int posicionInicialEnZ = 1;
+
+    for (int x = 1; x <= obtenerNumeroDeColumna(); x++) {
+        
+        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
+
+            bool filaLlena = false;
+            std::string valorDeLaCelda;
+            
+            while (filaLlena == false || posicionInicialEnZ <= posicionFinalEnZ) {
+
+                valorDeLaCelda = this->fila->obtener(x)->obtener(y)->obtener(posicionInicialEnZ)->obtenerValorDeCelda();
+                valorDeLaCelda == " " ? posicionInicialEnZ++ : filaLlena = true;
+
+            };
+
+            std::cout << valorDeLaCelda << std::endl;
+            
+        }
+        
+    }
+
+};
+
+void Tablero::mostrarTableroYZ() {
+
+    unsigned int posicionFinalEnX = 1;
+    unsigned int posicionInicialEnX = obtenerNumeroDeColumna();
+
+    for (int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
+
+        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
+
+            bool filaLlena = false;
+            std::string valorDeLaCelda;
+
+            while (filaLlena == false || posicionInicialEnX < posicionFinalEnX) {
+
+                valorDeLaCelda = this->fila->obtener(posicionFinalEnX)->obtener(y)->obtener(z)->obtenerValorDeCelda();
+                valorDeLaCelda == " " ? posicionInicialEnX-- : filaLlena = true;
+
+            };
+
+            std::cout << valorDeLaCelda << std::endl;
+
+        }
+        
+    }
+    
+};
+
+Lista< Lista< Lista<Celda*>* >* >* Tablero::obtenerFila() {
+
+    return this->fila;
+
+}
+
+unsigned int Tablero::obtenerNumeroDeFila() {
+
+    return this->numeroDeFila;
+
+}
+
+unsigned int Tablero::obtenerNumeroDeColumna() {
+
+    return this->numeroDeColumna;
+
+}
+
+unsigned int Tablero::obtenerNumeroDeProfundidad() {
+
+    return this->numeroDeProfundidad;
+
+}

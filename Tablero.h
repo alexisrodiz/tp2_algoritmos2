@@ -74,6 +74,14 @@ class Tablero {
         *  Pos: Crea un bitmap del tablero
         */
         void crearBitMap();
+
+        Lista< Lista< Lista<Celda*>* >* >* obtenerFila();
+
+        unsigned int obtenerNumeroDeFila();
+
+        unsigned int obtenerNumeroDeColumna();
+
+        unsigned int obtenerNumeroDeProfundidad();
         
         /* Pre:
         *  Pos: Detruye el tablero
