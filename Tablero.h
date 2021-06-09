@@ -61,26 +61,38 @@ class Tablero {
         void mostrarTableroYZ();
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
-        *  Pos: Muestra el tablero por consola de la cara YZ
+        *  Pos: Marca en el tablero la ficha correspondiente al jugador
         */
-        void marcarTablero(unsigned int columna, unsigned int profundidad, Jugador jugador);
+        void marcarTablero(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugadorEnTurno);
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana
         */
-        void verificarGanador(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugador);
+        void verificarGanador(Jugador jugadorEnTurno);
 
         /* Pre:
         *  Pos: Crea un bitmap del tablero
         */
         void crearBitMap();
 
+        /* Pre:
+        *  Pos: Retorna la fila principal del Tablero
+        */
         Lista< Lista< Lista<Celda*>* >* >* obtenerFila();
 
+        /* Pre:
+        *  Pos: Retorna el numero de fila
+        */
         unsigned int obtenerNumeroDeFila();
 
+        /* Pre:
+        *  Pos: Retorna el numero de columna
+        */
         unsigned int obtenerNumeroDeColumna();
 
+        /* Pre:
+        *  Pos: Retorna el numero de profundidad
+        */
         unsigned int obtenerNumeroDeProfundidad();
         
         /* Pre:

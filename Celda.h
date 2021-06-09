@@ -1,18 +1,16 @@
 #ifndef CELDA_H_
 #define CELDA_H_
 
-#include <string>
-
 class Celda {
 
     private:
 
-        std::string valorDeLaCelda;
-        std::string estadoDeLaCelda;
+        char valorDeLaCelda;
+        bool estaVacia;
 
         /* Posibles valores de:
         *  valorDeLaCelda = " " | Jugador->marca
-        *  estadoDeLaCelda = "vacia" | "llena"
+        *  estaVacia = true | false
         */
         
     public:
@@ -23,14 +21,24 @@ class Celda {
         Celda();
 
         /* Pre: 
-        *  Pos: Retorna el valor de la Celda
+        *  Pos: Cambia el valor actual de la Celda
         */
-        std::string obtenerValorDeCelda();
+        void cambiarValorDeCelda(char valorNuevo);
 
         /* Pre: 
-        *  Pos: Retorna el estado de la Celda
+        *  Pos: Retorna el valor de la Celda
         */
-        std::string obtenerEstadoDeCelda();
+        char obtenerValorDeCelda();
+
+        /* Pre: 
+        *  Pos: Cambia el estado actual de la Celda
+        */
+        void cambiarEstadoDeCelda();
+
+        /* Pre: 
+        *  Pos: Retorna el estado de la Celda, estaVacia = true | false
+        */
+        bool obtenerEstaVacia();
 
         /* Pre: 
         *  Pos: Destruye la Celda
