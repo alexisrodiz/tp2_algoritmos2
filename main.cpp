@@ -8,6 +8,7 @@ int main() {
     int fil = 2;
     int col = 2;
     int prof = 2;
+    /*
     unsigned jugador1 = 1;
     unsigned jugador2 = 2;
     unsigned fichasTotal;
@@ -29,6 +30,7 @@ int main() {
 	jugador2 = nroJugador.obtenerJugador();
 	fichasTotal = nroJugador.obtenerFichasTotal();
 	fichasJugador2 = nroJugador.obtenerFicha();
+    */
 
     Tablero* nuevoTablero = new Tablero(fil,col,prof);
     nuevoTablero->mostrarTablero();

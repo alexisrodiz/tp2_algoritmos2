@@ -2,20 +2,32 @@
 
 Celda::Celda() {
 
-    this->valorDeLaCelda = " ";
-    this->estadoDeLaCelda = "vacia";
+    this->valorDeLaCelda = (char)" ";
+    this->estaVacia = false;
 
 }
 
-std::string Celda::obtenerValorDeCelda() {
+void Celda::cambiarValorDeCelda(char nuevoValor) {
+
+    this->valorDeLaCelda = nuevoValor;
+
+}
+
+char Celda::obtenerValorDeCelda() {
 
     return this->valorDeLaCelda;
 
 }
 
-std::string Celda::obtenerEstadoDeCelda() {
+void Celda::cambiarEstadoDeCelda() {
 
-    return this->estadoDeLaCelda;    
+    this->estaVacia != estaVacia;
+
+}
+
+bool Celda::obtenerEstaVacia() {
+
+    return this->estaVacia;    
 
 }
 
