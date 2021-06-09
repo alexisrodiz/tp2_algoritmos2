@@ -8,7 +8,7 @@
 #include "Jugador.h"
 #include <iostream>
 #define MAX_FICHAS 50
-
+/*
 Jugador::Jugador(){
 	nroJugador = 0;
 	for(int i = 1; i <= 2;i++){
@@ -65,3 +65,42 @@ std::string Jugador::obtenerFicha(){
 void Jugador::imprimirJugador(){
 	std::cout << "Jugador " << nroJugador << " tu turno"<< std::endl;
 }
+*/
+
+Jugador::Jugador(unsigned int cantidad){
+	this->cantidadJugadores = cantidad;
+	this->jugadores = new Lista<Jugadores*>();
+	this->cartas = new Lista<Carta*>();
+	fichaAsignada = ' ';
+	carta = "";
+	cantidadFichas = 0;
+}
+
+
+void Jugador::ingresarFicha(Jugadores* ficha,unsigned int i){
+	std::cout << "Ingrese ficha jugador " << i+1 << ": ";
+	std::cin >> fichaAsignada;
+	while(!ficha->verificarFicha(fichaAsignada)){
+		std::cout << "Ficha ya usada, ingrese otra: ";
+		std::cin >> fichaAsignada;
+	}
+	this->jugadores->agregar(ficha,i);
+
+}
+
+void Jugador::mostrarJugadores(){
+	for(unsigned int i=0; i<this->cantidadJugadores;i++){
+		std::cout << "Jugador: " << i+1 << this->jugadores->obtener(i) << " Ficha: " << this->jugadores->obtener(i) << std::endl;
+	}
+}
+
+void Jugador::asignarNumeroDeCartas(){
+	int maximo = 3;
+	Carta* carta = new Carta(maximo,this->carta);
+	std::cout << "Carta: " << carta->obtenerTipo() << std::endl;
+	std::cout << " Tipo: " << carta->obtenerValor() << std::endl;
+	this->cartas->agregar(carta);
+	//this->cartas->obtener(maximo);
+}
+
+
