@@ -1,16 +1,11 @@
-/*
- * Jugador.h
- *
- *  Created on: 28 may. 2021
- *      Author: caroj
- */
-
 #ifndef JUGADOR_H_
 #define JUGADOR_H_
 
-#include "Jugadores.h"
+//#include "Jugadores.h"
 #include "Carta.h"
 #include "Lista.h"
+#include "Mazo.h"
+
 
 /*
 class Jugador{
@@ -56,7 +51,7 @@ public:
 	 */
 	//std::string obtenerFicha();
 	/*
-	 * Pre: Asignación de ficha
+	 * Pre: Asignaciï¿½n de ficha
 	 * Post: Controla que la ficha del 2do jugador no sea igual
 	 * 		a la del primero
 	 */
@@ -71,27 +66,58 @@ class Jugador{
 
 private:
 
-	Lista<Jugadores*>* jugadores;
 	Lista<Carta*>* cartas;
-	unsigned int cantidadJugadores;
+
 	unsigned int cantidadFichas;
+
 	char fichaAsignada;
-	std::string carta;
+
+	std::string nombre;
+
+	const int cantidadMaximaCartas = 3;
 
 public:
-	Jugador(unsigned int cantidad);
+
+	Jugador(std::string nombre, char ficha);
 
 	// Metodos
-	void establecerFichasTotal();
+	//void establecerFichasTotal();
 	/*
 	 * Pre: existir jugadores
 	 * Post: Se asigna la ficha
 	 */
-	void ingresarFicha(Jugadores* ficha, unsigned int i);
+	//void ingresarFicha(Jugadores* ficha, unsigned int i);
+	//void mostrarJugadores();
+	//void asignarNumeroDeCartas();
 
-	void mostrarJugadores();
 
-	void asignarNumeroDeCartas();
+	/*
+	 * Pre: existir mazo
+	 * Post: saca una carta del mazo y la guarda (si hay lugar)
+	 */
+	void sacarCartaMazo(Mazo* mazo);
+
+	/*
+	 * Pre:
+	 * Post: puede o no usar una carta y colocar la ficha en el tablero
+	 */
+	void realizarJugada();
+
+	/*
+	 * Post: devuelve el nombre del jugador
+	 */
+	std::string obtenerNombre();
+
+	/*
+	 * Post: devuelve la ficha que eligiÃ³ el jugador
+	 */
+	char obtenerFicha();
+
+	/*
+	 * pre: tener cartas
+	 * Post: devuelve la lista de cartas que tiene el jugador
+	 */
+	Lista<Carta*>* obtenerCartas();
 
 };
 
