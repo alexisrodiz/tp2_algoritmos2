@@ -70,6 +70,15 @@ class Tablero {
         */
         void verificarGanador(Jugador jugadorEnTurno);
 
+        /*Nota: metodo para ir probando, no es el definitivo, ni en nombre ni argumentos*/
+        /*Pre: coordenadas de posicion validas, ficha valida
+         *Post: Si hay espacio, es decir se pueden seguir apilando fichas en la columna tridimensional cuya
+         base es: (fila,columna,0) se agrega "ficha" en el primer espacio disponible en esa columna tridimensional
+         contando desde abajo hacia arriba y se devuelve "true", en caso de no haber espacio libre, no se agrega nada
+         y se devuelve "false"
+         */
+        bool agregarFicha(unsigned int fila, unsigned int columna, char ficha);
+
         /* Pre:
         *  Pos: Crea un bitmap del tablero
         */
