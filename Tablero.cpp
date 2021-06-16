@@ -139,12 +139,26 @@ void Tablero::marcarTablero(unsigned int fila, unsigned int columna, unsigned in
 
     if(obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->obtenerEstaVacia()) {
 
-        obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
-        obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarEstadoDeCelda();
+    	//comentado para que compile hasta que se agrege obtenerFicha() a clase Jugador
+        //obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
+    	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda('X');//solo para probar
+    	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarEstadoDeCelda();
 
     }
 
 };
+
+bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha){
+
+	Jugador jugadorEnTurno(2);
+	int cantidadElementosEnUso =this->obtenerFila()->obtener(fila)->obtener(columna)->contarElementos();
+
+	if (cantidadElementosEnUso < this->obtenerNumeroDeProfundidad()) {
+		this->marcarTablero(fila, columna, cantidadElementosEnUso + 1 , jugadorEnTurno);
+	}
+
+	return false;
+}
 
 Tablero::~Tablero() {
 

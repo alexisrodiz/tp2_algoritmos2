@@ -21,7 +21,7 @@ char Celda::obtenerValorDeCelda() {
 
 void Celda::cambiarEstadoDeCelda() {
 
-    this->estaVacia != estaVacia;
+    this->estaVacia = !estaVacia; //aca lo cambie porque devolvia siempre falso
 
 }
 
