@@ -4,6 +4,7 @@
 #include <vector>
 #include "Jugador.h"
 #include "Lista.h"
+#include "Mazo.h"
 
 class Juego {
 
@@ -12,6 +13,8 @@ class Juego {
     std::vector<char> fichasUtilizadas;
 
     Lista<Jugador *>* jugadores;
+
+    Mazo* mazo;
 
     public:
 

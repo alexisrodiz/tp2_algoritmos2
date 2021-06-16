@@ -9,6 +9,8 @@ Juego::Juego(){
 
     jugadores = new Lista<Jugador*>;
 
+    mazo = new Mazo;
+
 }
 
 void Juego::agregarJugadores(){
@@ -17,7 +19,7 @@ void Juego::agregarJugadores(){
     string nombre;
     char ficha;
     do {
-        cout << "Por favor ingrese el nombre del jugador" << endl;
+        cout << "Por favor ingrese el nombre del jugador " << i <<  endl;
         cin >> nombre;
         
         do
@@ -33,9 +35,13 @@ void Juego::agregarJugadores(){
             
         jugadores->agregar(jugador);
 
-        cout << "Desea agregar otro jugador? 1: SI, 0: NO" << endl;
-        cin >> agregarOtroJugador;
-
+        // Si ya se agregaron 2 jugadores, pregunto si se quieren agregar mas
+        if (i >= 2)
+        {
+            cout << "Desea agregar otro jugador? 1: SI, 0: NO" << endl;
+            cin >> agregarOtroJugador;
+        }
+        
         ++i;
     }
     while(i <= 2 || agregarOtroJugador != 0);
@@ -57,4 +63,43 @@ void Juego::imprimirJugadores(){
     }
     
 
+}
+
+void Juego::iniciar(){
+    this->agregarJugadores();
+    this->obtenerJugadores()->iniciarCursor();
+
+    while(this->obtenerJugadores()->avanzarCursor()){
+        int valorCartaJugada;
+        int usarCartas = 0;
+
+        Carta* cartaJugada;
+
+        Jugador* jugador = this->obtenerJugadores()->obtenerCursor();
+        
+        cout << "Retirando una carta del mazo..." << endl;
+        jugador->sacarCartaMazo(this->mazo);
+
+        cout << "Tus cartas en mano son: " << endl;
+	    jugador->imprimirCartasEnMano();
+
+        cout << "Usar carta? 1: SI - 0: NO" << endl;
+        cin >> usarCartas;
+
+        if (usarCartas == 1)
+        {
+            cout << "Indique el valor de la carta a utilizar: " << endl;
+            cin >> valorCartaJugada;
+
+            cartaJugada = jugador->obtenerCartaPorValor(valorCartaJugada);
+
+            /* HACER ALGO CON LA CARTA ELEGIDA PARA JUGAR*/
+
+        }
+
+        jugador->realizarJugada();
+
+    
+
+    }
 }

@@ -7,6 +7,84 @@
 #include "Mazo.h"
 
 
+
+const int cantidadMaximaCartas = 3;
+
+class Jugador{
+
+private:
+
+	Lista<Carta*>* cartas;
+
+	unsigned int cantidadFichas;
+
+	char fichaAsignada;
+
+	std::string nombre;
+
+	
+
+		/*
+	 * pre: tener cartas
+	 * Post: devuelve la lista de cartas que tiene el jugador
+	 */
+	Lista<Carta*>* obtenerCartas();
+
+
+public:
+
+	Jugador(std::string nombre, char ficha);
+
+	// Metodos
+	//void establecerFichasTotal();
+	/*
+	 * Pre: existir jugadores
+	 * Post: Se asigna la ficha
+	 */
+	//void ingresarFicha(Jugadores* ficha, unsigned int i);
+
+
+	/*
+	 * Pre: existir mazo
+	 * Post: saca una carta del mazo y la guarda (si hay lugar)
+	 */
+	void sacarCartaMazo(Mazo* mazo);	
+
+	/*
+	 * Pre:
+	 * Post: puede o no usar una carta y colocar la ficha en el tablero
+	 */
+	void realizarJugada();
+
+	/*
+	 * Post: devuelve el nombre del jugador
+	 */
+	std::string obtenerNombre();
+
+	/*
+	 * Post: devuelve la ficha que eligió el jugador
+	 */
+	char obtenerFicha();
+
+
+
+	/*
+	 * Post: muestra en pantalla las cartas en mano del jugador
+	 */
+	void imprimirCartasEnMano();
+
+	/*
+	 * Post: devuelve la carta en mano segun el valor pasado por parametro
+	 */
+	Carta* obtenerCartaPorValor(int valor);
+
+};
+
+
+
+#endif /* JUGADOR_H_ */
+
+
 /*
 class Jugador{
 
@@ -61,66 +139,3 @@ public:
 };
 */
 
-
-class Jugador{
-
-private:
-
-	Lista<Carta*>* cartas;
-
-	unsigned int cantidadFichas;
-
-	char fichaAsignada;
-
-	std::string nombre;
-
-	const int cantidadMaximaCartas = 3;
-
-public:
-
-	Jugador(std::string nombre, char ficha);
-
-	// Metodos
-	//void establecerFichasTotal();
-	/*
-	 * Pre: existir jugadores
-	 * Post: Se asigna la ficha
-	 */
-	//void ingresarFicha(Jugadores* ficha, unsigned int i);
-	//void mostrarJugadores();
-	//void asignarNumeroDeCartas();
-
-
-	/*
-	 * Pre: existir mazo
-	 * Post: saca una carta del mazo y la guarda (si hay lugar)
-	 */
-	void sacarCartaMazo(Mazo* mazo);
-
-	/*
-	 * Pre:
-	 * Post: puede o no usar una carta y colocar la ficha en el tablero
-	 */
-	void realizarJugada();
-
-	/*
-	 * Post: devuelve el nombre del jugador
-	 */
-	std::string obtenerNombre();
-
-	/*
-	 * Post: devuelve la ficha que eligió el jugador
-	 */
-	char obtenerFicha();
-
-	/*
-	 * pre: tener cartas
-	 * Post: devuelve la lista de cartas que tiene el jugador
-	 */
-	Lista<Carta*>* obtenerCartas();
-
-};
-
-
-
-#endif /* JUGADOR_H_ */

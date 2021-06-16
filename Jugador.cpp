@@ -1,14 +1,7 @@
-/*
- * Jugador.cpp
- *
- *  Created on: 28 may. 2021
- *      Author: caroj
- */
-
-#include "Jugador.h"
 #include <iostream>
-
+#include "Jugador.h"
 using namespace std;
+
 /*
 Jugador::Jugador(){
 	nroJugador = 0;
@@ -95,8 +88,42 @@ char Jugador::obtenerFicha(){
 	return this->fichaAsignada;
 }
 
+void Jugador::imprimirCartasEnMano(){
+	Lista<Carta*>* cartas = this->obtenerCartas();
+	cartas->iniciarCursor();
+
+	while(cartas->avanzarCursor()){
+		Carta* carta = cartas->obtenerCursor();
+		cout << carta->obtenerTipo() << ": " << carta->obtenerValor() << endl;
+	}
+}
+
 void Jugador::realizarJugada(){
-	/* **** */ 
+	// falta terminar
+
+	int x ;
+	int y ;
+	int z ;
+
+
+	cout << "Indique una ubicacion para colocar la ficha: " << endl;
+	cout << "Coordenada x : " << endl;
+	cin >> x;
+	cout << "Coordenada y : " << endl;
+	cin >> y;
+	cout << "Coordenada z : " << endl;
+	cin >> z;
+}
+
+Carta* Jugador::obtenerCartaPorValor(int valor){
+	this->cartas->iniciarCursor();
+	while(this->cartas->avanzarCursor()){
+		Carta* carta = this->cartas->obtenerCursor();
+		if (carta->obtenerValor() == valor){
+			return carta;
+		}
+	}
+
 }
 
 /*
