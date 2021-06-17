@@ -10,17 +10,17 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     this->cantidadDeCeldasVacias = (this->numeroDeFila)*(this->numeroDeColumna)*(this->numeroDeProfundidad);
 
     this->fila = new Lista< Lista< Lista<Celda*>* >* >();
-1
-    for (int x = 1; x <= this->numeroDeColumna; x++) {
+
+    for (unsigned int x = 1; x <= this->numeroDeColumna; x++) {
         
         Lista< Lista<Celda*>* >* columna = new Lista< Lista<Celda*>* >();
         
 
-        for (int y = 1; y <= this->numeroDeFila; y++) {
+        for (unsigned int y = 1; y <= this->numeroDeFila; y++) {
 
             Lista<Celda*>* profundidad = new Lista<Celda*>();
 
-            for (int z = 1; z <= this->numeroDeProfundidad; z++) {
+            for (unsigned int z = 1; z <= this->numeroDeProfundidad; z++) {
                 
                 Celda* celda = new Celda();
                 profundidad->agregar(celda,z);
@@ -43,11 +43,11 @@ bool Tablero:: hayCeldasVacias(){
 
 void Tablero::mostrarTablero() {
 
-    for (int x = 1; x <= obtenerNumeroDeColumna(); x++) {
+    for (unsigned int x = 1; x <= obtenerNumeroDeColumna(); x++) {
         
-        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
+        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
             
-            for (int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
+            for (unsigned int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
 
                 std::cout << this->fila->obtener(x)->obtener(y)->obtener(z)->obtenerValorDeCelda() << std::endl;
             };
@@ -62,9 +62,9 @@ void Tablero::mostrarTableroXY() {
 
     char valorDeLaCelda;
 
-    for (int x = 1; x <= obtenerNumeroDeColumna(); x++) {
+    for (unsigned int x = 1; x <= obtenerNumeroDeColumna(); x++) {
         
-        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
+        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
 
             bool filaLlena = false;
             obtenerFila()->obtener(x)->obtener(y)->iniciarCursor();
@@ -72,7 +72,7 @@ void Tablero::mostrarTableroXY() {
             while (filaLlena == false || obtenerFila()->obtener(x)->obtener(y)->avanzarCursor()) {
 
                 valorDeLaCelda = obtenerFila()->obtener(x)->obtener(y)->obtenerCursor()->obtenerValorDeCelda();
-                if(valorDeLaCelda != (char)" ") {
+                if(valorDeLaCelda != ' ') {
 
                     filaLlena = true;
 
@@ -92,9 +92,9 @@ void Tablero::mostrarTableroYZ() {
 
     char valorDeLaCelda;
 
-    for (int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
+    for (unsigned int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
 
-        for (int y = 1; y <= obtenerNumeroDeFila(); y++) {
+        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
 
             bool filaLlena = false;
             obtenerFila()->iniciarCursor();
@@ -102,7 +102,7 @@ void Tablero::mostrarTableroYZ() {
             while (filaLlena == false || obtenerFila()->avanzarCursor()) {
 
                 valorDeLaCelda = obtenerFila()->obtenerCursor()->obtener(y)->obtener(z)->obtenerValorDeCelda();
-                if(valorDeLaCelda != (char)" ") {
+                if(valorDeLaCelda != ' ') {
 
                     filaLlena = true;
 
@@ -142,26 +142,31 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 
 };
 
-void Tablero::marcarTablero(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugadorEnTurno) {
 
-    if(obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->obtenerEstaVacia()) {
+bool Tablero::marcarJugada(unsigned int fila, unsigned int columna, Jugador jugadorEnTurno){
+
+    /*if(obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->obtenerEstaVacia()) {
 
     	//comentado para que compile hasta que se agrege obtenerFicha() a clase Jugador
         //obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
     	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda('X');//solo para probar
     	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarEstadoDeCelda();
 
-    }
+    }*/
+    return true;
+}
 
-};
+bool Tablero::jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear){
+	return true;
+}
 
 bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha){
 
-	Jugador jugadorEnTurno(2);
-	int cantidadElementosEnUso =this->obtenerFila()->obtener(fila)->obtener(columna)->contarElementos();
+	//Jugador jugadorEnTurno(2);
+	unsigned int cantidadElementosEnUso =this->obtenerFila()->obtener(fila)->obtener(columna)->contarElementos();
 
 	if (cantidadElementosEnUso < this->obtenerNumeroDeProfundidad()) {
-		this->marcarTablero(fila, columna, cantidadElementosEnUso + 1 , jugadorEnTurno);
+		//this->marcarTablero(fila, columna, cantidadElementosEnUso + 1 , jugadorEnTurno);
 	}
 
 	return false;
@@ -169,11 +174,11 @@ bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha)
 
 Tablero::~Tablero() {
 
-    for (int x = 1; x <= this->numeroDeColumna; x++) {
+    for (unsigned int x = 1; x <= this->numeroDeColumna; x++) {
 
-        for (int y = 1; y <= this->numeroDeFila; y++) {
+        for (unsigned int y = 1; y <= this->numeroDeFila; y++) {
 
-            for (int z = 1; z <= this->numeroDeProfundidad; z++) {
+            for (unsigned int z = 1; z <= this->numeroDeProfundidad; z++) {
                 
                 Celda* celda = obtenerFila()->obtener(x)->obtener(y)->obtener(z);
                 delete celda;

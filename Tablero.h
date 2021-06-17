@@ -97,7 +97,7 @@ class Tablero {
          */
         bool jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear);
 
-        /*Nota: metodo para ir probando, no es el definitivo, ni en nombre ni argumentos*/
+        /*Nota: No usar, el metodo valido es: marcarJugada/
         /*Pre: coordenadas de posicion validas, ficha valida
          *Post: Si hay espacio, es decir se pueden seguir apilando fichas en la columna tridimensional cuya
          base es: (fila,columna,0) se agrega "ficha" en el primer espacio disponible en esa columna tridimensional
