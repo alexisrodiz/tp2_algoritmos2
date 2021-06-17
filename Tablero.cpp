@@ -7,8 +7,10 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     this->numeroDeColumna = columna;
     this->numeroDeProfundidad = profundidad;
 
-    this->fila = new Lista< Lista< Lista<Celda*>* >* >();
+    this->cantidadDeCeldasVacias = (this->numeroDeFila)*(this->numeroDeColumna)*(this->numeroDeProfundidad);
 
+    this->fila = new Lista< Lista< Lista<Celda*>* >* >();
+1
     for (int x = 1; x <= this->numeroDeColumna; x++) {
         
         Lista< Lista<Celda*>* >* columna = new Lista< Lista<Celda*>* >();
@@ -33,6 +35,11 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     };
     
 };
+
+bool Tablero:: hayCeldasVacias(){
+	return this->cantidadDeCeldasVacias > 0;
+}
+
 
 void Tablero::mostrarTablero() {
 

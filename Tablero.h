@@ -14,6 +14,8 @@ class Tablero {
         unsigned int numeroDeColumna;
         unsigned int numeroDeProfundidad;
 
+        unsigned int cantidadDeCeldasVacias; //agrege esto porque podria ser util
+
 
         /*  Ver para uso recursivo
         *   Discutir el tema de un tablero espejo para recorrer con la misma 
@@ -41,6 +43,12 @@ class Tablero {
         *  Pos: Crea un tablero de 3 dimensiones, inicializando los casilleros en 0
         */
         Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad);
+
+
+        /*Pre:
+         *Post: Devuelve "true" en caso de haber al menos una celda vacia(no ocupada) en el tablero
+         */
+        bool hayCeldasVacias();
 
         /* Pre:
         *  Pos: Muestra el tablero por consola
@@ -79,7 +87,15 @@ class Tablero {
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana
         */
-        void verificarGanador(Jugador jugadorEnTurno);
+        //void verificarGanador(Jugador jugadorEnTurno);
+
+
+        /* Pre: Recibe el jugador en turno "jugadorEnturno" y la longitud de la linea a chequear
+         * "longitudDeLineaAChequear", esta ultima debe ser un valor mayor a 1
+         * Post: devuelve "true" en caso de que el jugador "jugadorEnTurno"(que contiene sus fichas
+         * respectivas internamente) haya ganado la partida, devuelve false en caso de que no haya ganado
+         */
+        bool jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear)
 
         /*Nota: metodo para ir probando, no es el definitivo, ni en nombre ni argumentos*/
         /*Pre: coordenadas de posicion validas, ficha valida
