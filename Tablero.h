@@ -95,7 +95,7 @@ class Tablero {
          * Post: devuelve "true" en caso de que el jugador "jugadorEnTurno"(que contiene sus fichas
          * respectivas internamente) haya ganado la partida, devuelve false en caso de que no haya ganado
          */
-        bool jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear)
+        bool jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear);
 
         /*Nota: metodo para ir probando, no es el definitivo, ni en nombre ni argumentos*/
         /*Pre: coordenadas de posicion validas, ficha valida
