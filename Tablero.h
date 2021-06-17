@@ -60,10 +60,21 @@ class Tablero {
         */
         void mostrarTableroYZ();
 
+
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Marca en el tablero la ficha correspondiente al jugador
         */
-        void marcarTablero(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugadorEnTurno);
+       //void marcarTablero(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugadorEnTurno);
+
+
+        /* Pre: Recibe las coordenadas de "fila", "columna" en donde el jugador quiere apilar su ficha
+         * asi, como el Jugador en turno(Nota: la profundidad no es necesaria ya que se van apilando las
+         * fichas hasta que no haya espacio disponible)
+         * Pos: Devuelve "true" si pudo agregar la ficha al tablero exitosamente, devuelve false si
+         * no hay espacio disponible, y por ende no pudo agregar la ficha al tablero.
+         */
+
+        bool marcarJugada(unsigned int fila, unsigned int columna, Jugador jugadorEnTurno);
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana
