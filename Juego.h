@@ -2,9 +2,11 @@
 #define JUEGO_H_
 
 #include <vector>
+#include "Tablero.h"
 #include "Jugador.h"
 #include "Lista.h"
 #include "Mazo.h"
+#include "Coordenadas.h"
 
 class Juego {
 
@@ -26,14 +28,21 @@ class Juego {
 
 
     /*
+    * pre: el jugador juega una carta
+    * post: procesa la carta segun el tipo y ejecuta las acciones que determinan la misma
+    */
+    void procesarCarta(Carta* carta, Jugador* jugador);
+
+    /*
     * post: Solicita nombre y ficha para crear y agregar los jugadores a la lista
     */
     void agregarJugadores();
 
     /*
+    * pre: recibe una instancia de tablero como parametro
     * post: Inicia el Juego
     */
-    void iniciar();
+    void iniciar(Tablero* tablero);
 
 
     /*

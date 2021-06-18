@@ -2,6 +2,71 @@
 #include "Jugador.h"
 using namespace std;
 
+
+
+Jugador::Jugador(string nombre, char ficha){
+	this->cartas = new Lista<Carta*>;
+	this->fichaAsignada = ficha;
+	this->nombre = nombre;
+	cantidadFichas = 0;
+}
+
+void Jugador::sacarCartaMazo(Mazo* mazo){
+	if (cartas->contarElementos() < cantidadMaximaCartas)
+	{
+		Carta* carta = mazo->sacarCarta();
+		cartas->agregar(carta);
+	}
+}
+
+Lista<Carta*>* Jugador::obtenerCartas(){
+	return this->cartas;
+}
+
+string Jugador::obtenerNombre(){
+	return this->nombre;
+}
+
+char Jugador::obtenerFicha(){
+	return this->fichaAsignada;
+}
+
+void Jugador::imprimirCartasEnMano(){
+	Lista<Carta*>* cartas = this->obtenerCartas();
+	cartas->iniciarCursor();
+
+	while(cartas->avanzarCursor()){
+		Carta* carta = cartas->obtenerCursor();
+		cout << carta->obtenerTipo() << ": " << carta->obtenerValor() << endl;
+	}
+}
+
+Coordenadas* Jugador::realizarJugada(){
+	int x ;
+	int y ;
+
+	cout << "Indique una ubicacion para colocar la ficha: " << endl;
+	cout << "Coordenada x : " << endl;
+	cin >> x;
+	cout << "Coordenada y : " << endl;
+	cin >> y;
+
+	Coordenadas* coordenadas = new Coordenadas(x, y);
+
+	return coordenadas;
+}
+
+Carta* Jugador::obtenerCartaPorValor(int valor){
+	this->cartas->iniciarCursor();
+	while(this->cartas->avanzarCursor()){
+		Carta* carta = this->cartas->obtenerCursor();
+		if (carta->obtenerValor() == valor){
+			return carta;
+		}
+	}
+
+}
+
 /*
 Jugador::Jugador(){
 	nroJugador = 0;
@@ -59,74 +124,7 @@ std::string Jugador::obtenerFicha(){
 void Jugador::imprimirJugador(){
 	std::cout << "Jugador " << nroJugador << " tu turno"<< std::endl;
 }
-*/
 
-Jugador::Jugador(string nombre, char ficha){
-	this->cartas = new Lista<Carta*>;
-	this->fichaAsignada = ficha;
-	this->nombre = nombre;
-	cantidadFichas = 0;
-}
-
-void Jugador::sacarCartaMazo(Mazo* mazo){
-	if (cartas->contarElementos() < cantidadMaximaCartas)
-	{
-		Carta* carta = mazo->sacarCarta();
-		cartas->agregar(carta);
-	}
-}
-
-Lista<Carta*>* Jugador::obtenerCartas(){
-	return this->cartas;
-}
-
-string Jugador::obtenerNombre(){
-	return this->nombre;
-}
-
-char Jugador::obtenerFicha(){
-	return this->fichaAsignada;
-}
-
-void Jugador::imprimirCartasEnMano(){
-	Lista<Carta*>* cartas = this->obtenerCartas();
-	cartas->iniciarCursor();
-
-	while(cartas->avanzarCursor()){
-		Carta* carta = cartas->obtenerCursor();
-		cout << carta->obtenerTipo() << ": " << carta->obtenerValor() << endl;
-	}
-}
-
-void Jugador::realizarJugada(){
-	// falta terminar
-
-	int x ;
-	int y ;
-	int z ;
-
-
-	cout << "Indique una ubicacion para colocar la ficha: " << endl;
-	cout << "Coordenada x : " << endl;
-	cin >> x;
-	cout << "Coordenada y : " << endl;
-	cin >> y;
-	cout << "Coordenada z : " << endl;
-	cin >> z;
-}
-
-Carta* Jugador::obtenerCartaPorValor(int valor){
-	this->cartas->iniciarCursor();
-	while(this->cartas->avanzarCursor()){
-		Carta* carta = this->cartas->obtenerCursor();
-		if (carta->obtenerValor() == valor){
-			return carta;
-		}
-	}
-
-}
-
-/*
 void Jugador::ingresarFicha(Jugadores* ficha,unsigned int i){
 	std::cout << "Ingrese ficha jugador " << i+1 << ": ";
 	std::cin >> fichaAsignada;

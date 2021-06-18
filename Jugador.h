@@ -5,7 +5,7 @@
 #include "Carta.h"
 #include "Lista.h"
 #include "Mazo.h"
-
+#include "Coordenadas.h"
 
 
 const int cantidadMaximaCartas = 3;
@@ -54,7 +54,7 @@ public:
 	 * Pre:
 	 * Post: puede o no usar una carta y colocar la ficha en el tablero
 	 */
-	void realizarJugada();
+	Coordenadas* realizarJugada();
 
 	/*
 	 * Post: devuelve el nombre del jugador

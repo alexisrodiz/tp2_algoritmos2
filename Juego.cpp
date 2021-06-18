@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "Juego.h"
 #include "Jugador.h"
+#include "Coordenadas.h"
 
 using namespace std;
 
@@ -65,15 +66,20 @@ void Juego::imprimirJugadores(){
 
 }
 
-void Juego::iniciar(){
+void Juego::iniciar(Tablero* tablero){
+
     this->agregarJugadores();
+
     this->obtenerJugadores()->iniciarCursor();
 
+    // Ver tema de lista circular para recorrer los jugadores
     while(this->obtenerJugadores()->avanzarCursor()){
         int valorCartaJugada;
         int usarCartas = 0;
 
-        Carta* cartaJugada;
+        Coordenadas* coordenadasJugada = NULL;
+
+        Carta* cartaJugada = NULL;
 
         Jugador* jugador = this->obtenerJugadores()->obtenerCursor();
         
@@ -89,17 +95,35 @@ void Juego::iniciar(){
         if (usarCartas == 1)
         {
             cout << "Indique el valor de la carta a utilizar: " << endl;
-            cin >> valorCartaJugada;
+            cin >> valorCartaJugada; // falta chequear que el valor esté entre los aceptados (1-4)
 
             cartaJugada = jugador->obtenerCartaPorValor(valorCartaJugada);
 
-            /* HACER ALGO CON LA CARTA ELEGIDA PARA JUGAR*/
+            this->procesarCarta(cartaJugada, jugador);
 
         }
 
-        jugador->realizarJugada();
+        coordenadasJugada = jugador->realizarJugada();
 
-    
+        //tablero->marcarJugada()
 
+    }
+}
+
+void Juego::procesarCarta(Carta* carta, Jugador* jugador){
+    switch (carta->obtenerValor()){
+        case 1:
+            /* Bloquear turno del siguiente jugador (saltea el siguiente) */
+            this->jugadores->avanzarCursor();
+            break;
+        case 2:
+            jugador->realizarJugada();
+            break;
+        case 3:
+            /* Deshacer jugada del jugador anterior */
+            break;
+        case 4:
+            /* code */
+            break;
     }
 }
