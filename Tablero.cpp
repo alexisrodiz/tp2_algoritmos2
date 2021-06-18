@@ -163,7 +163,7 @@ bool Tablero::marcarJugada(unsigned int fila, unsigned int columna, Jugador juga
 			posicionVaciaNoEncontrada = false;
 
 			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
-			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();;
+			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
 			huboEspacioParaAgregarFicha = true;
 
 		}
