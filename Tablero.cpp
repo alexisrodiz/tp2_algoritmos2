@@ -145,6 +145,31 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 
 bool Tablero::marcarJugada(unsigned int fila, unsigned int columna, Jugador jugadorEnTurno){
 
+
+	Lista<Celda*>* listaProfundidad =  this->obtenerFila()->obtener(fila)->obtener(columna);
+
+	bool posicionVaciaNoEncontrada = true;
+
+	bool huboEspacioParaAgregarFicha = false;
+
+	unsigned int posicionCelda = 1;
+
+	listaProfundidad->iniciarCursor();
+
+	while (listaProfundidad->avanzarCursor() && posicionVaciaNoEncontrada){
+
+
+		if (listaProfundidad->obtenerCursor()->obtenerEstaVacia()){
+			posicionVaciaNoEncontrada = false;
+
+			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
+			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();;
+			huboEspacioParaAgregarFicha = true;
+
+		}
+		posicionCelda++;
+
+	}
     /*if(obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->obtenerEstaVacia()) {
 
     	//comentado para que compile hasta que se agrege obtenerFicha() a clase Jugador
@@ -152,8 +177,9 @@ bool Tablero::marcarJugada(unsigned int fila, unsigned int columna, Jugador juga
     	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarValorDeCelda('X');//solo para probar
     	obtenerFila()->obtener(fila)->obtener(columna)->obtener(profundidad)->cambiarEstadoDeCelda();
 
-    }*/
-    return true;
+    }
+    */
+    return huboEspacioParaAgregarFicha;
 }
 
 bool Tablero::jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear){
