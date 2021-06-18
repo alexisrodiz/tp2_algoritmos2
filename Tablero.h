@@ -4,6 +4,7 @@
 #include "Lista.h"
 #include "Jugador.h"
 #include "Celda.h"
+#include "Coordenadas.h"
 
 class Tablero {
 
@@ -75,14 +76,16 @@ class Tablero {
        //void marcarTablero(unsigned int fila, unsigned int columna, unsigned int profundidad, Jugador jugadorEnTurno);
 
 
-        /* Pre: Recibe las coordenadas de "fila", "columna" en donde el jugador quiere apilar su ficha
-         * asi, como el Jugador en turno(Nota: la profundidad no es necesaria ya que se van apilando las
-         * fichas hasta que no haya espacio disponible)
+        /* Pre: Recibe las coordenadas en donde el jugador quiere apilar su ficha
+         * asi, como el Jugador en turno.
          * Pos: Devuelve "true" si pudo agregar la ficha al tablero exitosamente, devuelve false si
-         * no hay espacio disponible, y por ende no pudo agregar la ficha al tablero.
+         * no hay espacio disponible, y por ende no pudo agregar la ficha al tablero, (Nota: las fichas
+         * se agregan en forma apilada las fichas de cada jugador en la posicion
+         * (coordenadaJugada->obtenerX(), coordenadaJugada->obtenerY(),z) del volumen del tablero, siendo
+         * z la primera celda no ocupada contando desde abajo hacia arriba)
          */
 
-        bool marcarJugada(unsigned int fila, unsigned int columna, Jugador jugadorEnTurno);
+        bool marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno);
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana
@@ -131,7 +134,7 @@ class Tablero {
         */
         unsigned int obtenerNumeroDeProfundidad();
         
-        /* Pre:
+        																																					/* Pre:
         *  Pos: Detruye el tablero
         */
         ~Tablero();

@@ -143,10 +143,10 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 };
 
 
-bool Tablero::marcarJugada(unsigned int fila, unsigned int columna, Jugador jugadorEnTurno){
+bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno){
 
-
-	Lista<Celda*>* listaProfundidad =  this->obtenerFila()->obtener(fila)->obtener(columna);
+	Lista<Celda*>* listaProfundidad =  this->obtenerFila()->obtener(coordenadaJugada->obtenerX())
+			->obtener(coordenadaJugada->obtenerY());
 
 	bool posicionVaciaNoEncontrada = true;
 
