@@ -6,6 +6,7 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     this->numeroDeFila = fila;
     this->numeroDeColumna = columna;
     this->numeroDeProfundidad = profundidad;
+    this->coordenadasDeUltimaCeldaAgregada = new Coordenadas(0,0,0);
 
     this->cantidadDeCeldasVacias = (this->numeroDeFila)*(this->numeroDeColumna)*(this->numeroDeProfundidad);
 
@@ -165,7 +166,11 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
 			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
 			huboEspacioParaAgregarFicha = true;
-
+			//Se quitaran el comentar cuando se agreguen a Coordenada.h guardarX(int), guardarY(int)..etc
+			//this->coordenadasDeUltimaCeldaAgregada->guardarX(coordenadaJugada->obtenerX());
+			//this->coordenadasDeUltimaCeldaAgregada->guardarY(coordenadaJugada->obtenerX());
+			//this->coordenadasDeUltimaCeldaAgregada->guardarZ(coordenadaJugada->obtenerX());
+			this->cantidadDeCeldasVacias--;
 		}
 		posicionCelda++;
 
@@ -183,6 +188,9 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 }
 
 bool Tablero::jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear){
+
+
+
 	return true;
 }
 

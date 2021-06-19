@@ -16,6 +16,7 @@ class Tablero {
         unsigned int numeroDeProfundidad;
 
         unsigned int cantidadDeCeldasVacias; //agrege esto porque podria ser util
+        Coordenadas* coordenadasDeUltimaCeldaAgregada;
 
 
         /*  Ver para uso recursivo
