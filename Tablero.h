@@ -85,7 +85,7 @@ class Tablero {
          * z la primera celda no ocupada contando desde abajo hacia arriba)
          */
 
-        bool marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno);
+        bool marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno);
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana
@@ -98,10 +98,10 @@ class Tablero {
          * Post: devuelve "true" en caso de que el jugador "jugadorEnTurno"(que contiene sus fichas
          * respectivas internamente) haya ganado la partida, devuelve false en caso de que no haya ganado
          */
-        bool jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear);
+        bool jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear);
 
-        /*Nota: No usar, el metodo valido es: marcarJugada/
-        /*Pre: coordenadas de posicion validas, ficha valida
+        /*Nota: No usar, el metodo valido es: marcarJugada
+         *Pre: coordenadas de posicion validas, ficha valida
          *Post: Si hay espacio, es decir se pueden seguir apilando fichas en la columna tridimensional cuya
          base es: (fila,columna,0) se agrega "ficha" en el primer espacio disponible en esa columna tridimensional
          contando desde abajo hacia arriba y se devuelve "true", en caso de no haber espacio libre, no se agrega nada

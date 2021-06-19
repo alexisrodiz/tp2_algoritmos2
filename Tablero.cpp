@@ -143,7 +143,7 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 };
 
 
-bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno){
+bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno){
 
 	Lista<Celda*>* listaProfundidad =  this->obtenerFila()->obtener(coordenadaJugada->obtenerX())
 			->obtener(coordenadaJugada->obtenerY());
@@ -162,7 +162,7 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno
 		if (listaProfundidad->obtenerCursor()->obtenerEstaVacia()){
 			posicionVaciaNoEncontrada = false;
 
-			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno.obtenerFicha());
+			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
 			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
 			huboEspacioParaAgregarFicha = true;
 
@@ -182,7 +182,7 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador jugadorEnTurno
     return huboEspacioParaAgregarFicha;
 }
 
-bool Tablero::jugadorGano(Jugador jugadorEnTurno, unsigned int longitudDeLineaAChequear){
+bool Tablero::jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear){
 	return true;
 }
 
