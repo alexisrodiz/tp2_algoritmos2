@@ -40,7 +40,7 @@ class Coordenadas {
         int obtenerY();
 
         /*
-        * post: Devuelve la Coordenada en Y
+        * post: Devuelve la Coordenada en Z
         */
         int obtenerZ();
 
@@ -49,30 +49,5 @@ class Coordenadas {
         */
         ~Coordenadas();
 };
-
-
-Coordenadas::Coordenadas(int x, int y){
-    this->x = x;
-    this->y = y;
-}
-
-Coordenadas::Coordenadas(int x, int y, int z){
-    this->x = x;
-    this->y = y;
-    this->z = z;
-}
-
-int Coordenadas::obtenerX(){
-    return this->x;
-}
-
-int Coordenadas::obtenerY(){
-    return this->y;
-}
-
-int Coordenadas::obtenerZ(){
-    return this->z;
-}
-
 
 #endif /* COORDENADAS_H_ */
