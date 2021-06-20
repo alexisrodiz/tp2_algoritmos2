@@ -9,8 +9,8 @@ Mazo::Mazo(){
 	
 	this->listaCartas->agregar(new Carta(1, "Bloquear Turno"));
 	this->listaCartas->agregar(new Carta(2, "Jugar Doble"));
-	this->listaCartas->agregar(new Carta(3, "Deshacer Jugada"));
-	this->listaCartas->agregar(new Carta(4, "Otro"));
+	this->listaCartas->agregar(new Carta(3, "Deshacer Ultima Jugada"));
+	this->listaCartas->agregar(new Carta(4, "Quitar Fichas a un Jugador"));
 	
 }
 
