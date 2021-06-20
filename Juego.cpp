@@ -8,6 +8,8 @@ using namespace std;
 
 Juego::Juego(){
 
+    tablero = new Tablero(2, 2, 2, 4);
+
     jugadores = new Lista<Jugador*>;
 
     mazo = new Mazo;
@@ -32,7 +34,7 @@ void Juego::agregarJugadores(){
         
         fichasUtilizadas.push_back(ficha);
         
-        Jugador * jugador = new Jugador(nombre, ficha);
+        Jugador * jugador = new Jugador(nombre, ficha, i);
             
         jugadores->agregar(jugador);
 
@@ -49,81 +51,139 @@ void Juego::agregarJugadores(){
     
 }
 
-
+/*
 Lista<Jugador *>* Juego::obtenerJugadores(){
     return this->jugadores;
 }
-
+*/
 void Juego::imprimirJugadores(){
     jugadores->iniciarCursor();
     while (jugadores->avanzarCursor())
     {
         Jugador* jugador = jugadores->obtenerCursor();
+        cout << "ID: " << jugador->obtenerId() << endl;
         cout << "Nombre: " << jugador->obtenerNombre() << endl;
         cout << "Ficha elegida: " << jugador->obtenerFicha() << "\n" << endl;
     }
-    
-
 }
 
-void Juego::iniciar(Tablero* tablero){
+Jugador* Juego::obtenerJugadorPorId(int id){
+    Jugador* jugador = NULL;
+	this->jugadores->iniciarCursor();
+	while(this->jugadores->avanzarCursor()){
+		if (this->jugadores->obtenerCursor()->obtenerId() == id){
+			jugador = this->jugadores->obtenerCursor();
+		}
+	}
+	return jugador;
+};
+
+void Juego::iniciar(){
+
+    this->tablero->mostrarTablero();
 
     this->agregarJugadores();
 
-    this->obtenerJugadores()->iniciarCursor();
+    this->jugadores->iniciarCursor();
+
+    Jugador* jugadorActual, * jugadorSeleccionado = NULL;
 
     // Ver tema de lista circular para recorrer los jugadores
-    while(this->obtenerJugadores()->avanzarCursor()){
+    while(this->jugadores->avanzarCursor()){
+        bool jugadaMarcada;
+        int numeroJugador;
         int valorCartaJugada;
         int usarCartas = 0;
 
-        Coordenadas* coordenadasJugada = NULL;
+        Coordenadas* coordenadaJugada = NULL;
 
         Carta* cartaJugada = NULL;
 
-        Jugador* jugador = this->obtenerJugadores()->obtenerCursor();
+        jugadorActual = this->jugadores->obtenerCursor();
         
         cout << "Retirando una carta del mazo..." << endl;
-        jugador->sacarCartaMazo(this->mazo);
+        jugadorActual->sacarCartaMazo(this->mazo);
 
         cout << "Tus cartas en mano son: " << endl;
-	    jugador->imprimirCartasEnMano();
+	    jugadorActual->imprimirCartasEnMano();
 
         cout << "Usar carta? 1: SI - 0: NO" << endl;
         cin >> usarCartas;
 
-        if (usarCartas == 1)
-        {
+        if (usarCartas == 1){
             cout << "Indique el valor de la carta a utilizar: " << endl;
             cin >> valorCartaJugada; // falta chequear que el valor esté entre los aceptados (1-4)
 
-            cartaJugada = jugador->obtenerCartaPorValor(valorCartaJugada);
+            cartaJugada = jugadorActual->obtenerCartaPorValor(valorCartaJugada);
 
-            this->procesarCarta(cartaJugada, jugador);
+            //this->procesarCarta(cartaJugada, jugador);
+
+            switch (cartaJugada->obtenerValor()){
+                case 1:
+                    /* Bloquear turno del siguiente jugador (saltea el siguiente) */
+                    cout << "¡Bloqueando turno del siguiente jugador!" << endl;
+                    this->obtenerJugadores()->avanzarCursor();
+                    break;
+                case 2:
+                    /* Jugar doble */
+                    cout << "¡Jugando Doble!" << endl;
+                    jugadorActual->realizarJugada();
+                    break;
+                case 3:
+                    /* Deshacer ultima jugada */
+                    this->tablero->borrarUltimaJugada();
+                    break;
+                case 4:
+                    /* Restar n cantidad de fichas a un jugador */
+                    cout << "Seleccione el ID del jugador al que desea quitarle las fichas: " << endl;
+                    this->imprimirJugadores();
+                    cin >> numeroJugador;
+                    jugadorSeleccionado = this->obtenerJugadorPorId(numeroJugador);
+
+                    jugadorSeleccionado->devolverFichas(5); // Calcular porcentaje fichas a quitar
+                    break;
+            }
 
         }
 
-        coordenadasJugada = jugador->realizarJugada();
+        do {
+            coordenadaJugada = jugadorActual->realizarJugada();
 
-        //tablero->marcarJugada()
+            jugadaMarcada = tablero->marcarJugada(coordenadaJugada, jugadorActual);
+            if (jugadaMarcada == false){
+                cout << "No hay espacio en las coordenadas seleccionadas, elija otras" << endl;
+            }
+            
+        }
+        while(jugadaMarcada == false);
+
+
+
+        
+        this->tablero->mostrarTablero();
 
     }
 }
 
+/*
 void Juego::procesarCarta(Carta* carta, Jugador* jugador){
     switch (carta->obtenerValor()){
         case 1:
-            /* Bloquear turno del siguiente jugador (saltea el siguiente) */
+            // Bloquear turno del siguiente jugador (saltea el siguiente) 
+            cout << "¡Bloqueando turno del siguiente jugador!" << endl;
             this->jugadores->avanzarCursor();
             break;
         case 2:
+            // Jugar doble 
+            cout << "¡Jugando Doble!" << endl;
             jugador->realizarJugada();
             break;
         case 3:
-            /* Deshacer jugada del jugador anterior */
+            // Deshacer ultima jugada 
+
             break;
         case 4:
-            /* code */
+            // code 
             break;
     }
-}
+}*/

@@ -13,10 +13,11 @@ const int cantidadMaximaCartas = 3;
 class Jugador{
 
 private:
+	int idJugador;
 
 	Lista<Carta*>* cartas;
 
-	unsigned int cantidadFichas;
+	int cantidadFichas;
 
 	char fichaAsignada;
 
@@ -33,16 +34,7 @@ private:
 
 public:
 
-	Jugador(std::string nombre, char ficha);
-
-	// Metodos
-	//void establecerFichasTotal();
-	/*
-	 * Pre: existir jugadores
-	 * Post: Se asigna la ficha
-	 */
-	//void ingresarFicha(Jugadores* ficha, unsigned int i);
-
+	Jugador(std::string nombre, char ficha, int numeroJugador);
 
 	/*
 	 * Pre: existir mazo
@@ -62,10 +54,32 @@ public:
 	std::string obtenerNombre();
 
 	/*
+	 * Post: devuelve el id del jugador
+	 */
+	int obtenerId();
+
+	/*
 	 * Post: devuelve la ficha que eligió el jugador
 	 */
 	char obtenerFicha();
 
+	/*
+	 * pre: Tener fichas
+	 * Post: Resta una unidad a la cantidad de fichas disponibles
+	 */
+	bool usarUnaFicha();
+
+	/*
+	 * Post: Quita n cantidad de fichas al jugador. Si se llega a 0, 
+	 * no se quitan mas fichas
+	 */
+	void devolverFichas(int cantidadFichas);
+
+	/*
+	 * Pre:
+	 * Post: Se establece la cantidad de fichas en total por jugador
+	 */
+	void establecerFichasIniciales(int cantidadFichasIniciales);
 
 
 	/*
@@ -103,11 +117,7 @@ public:
 	 * Post: establece el numero al jugador correspondiente
 	 */
 	//void establecerJugador(unsigned int jugador);
-	/*
-	 * Pre:
-	 * Post: Se establece la cantidad de fichas en total por jugador
-	 */
-	//void establecerFichasTotal();
+	
 	/*
 	 * Pre: existir jugadores
 	 * Post: Se asigna la ficha

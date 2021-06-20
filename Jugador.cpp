@@ -4,16 +4,15 @@ using namespace std;
 
 
 
-Jugador::Jugador(string nombre, char ficha){
+Jugador::Jugador(string nombre, char ficha, int numeroJugador) {
 	this->cartas = new Lista<Carta*>;
 	this->fichaAsignada = ficha;
 	this->nombre = nombre;
-	cantidadFichas = 0;
+	this->idJugador = numeroJugador;
 }
 
-void Jugador::sacarCartaMazo(Mazo* mazo){
-	if (cartas->contarElementos() < cantidadMaximaCartas)
-	{
+void Jugador::sacarCartaMazo(Mazo* mazo) {
+	if (cartas->contarElementos() < cantidadMaximaCartas) {
 		Carta* carta = mazo->sacarCarta();
 		cartas->agregar(carta);
 	}
@@ -57,15 +56,40 @@ Coordenadas* Jugador::realizarJugada(){
 }
 
 Carta* Jugador::obtenerCartaPorValor(int valor){
+	Carta* carta = NULL;
 	this->cartas->iniciarCursor();
 	while(this->cartas->avanzarCursor()){
-		Carta* carta = this->cartas->obtenerCursor();
-		if (carta->obtenerValor() == valor){
-			return carta;
+		if (this->cartas->obtenerCursor()->obtenerValor() == valor){
+			carta = this->cartas->obtenerCursor();
 		}
 	}
-
+	return carta;
 }
+
+bool Jugador::usarUnaFicha(){
+	if (this->cantidadFichas > 0){
+		--this->cantidadFichas;
+		return true;
+	}
+	return false;
+}
+
+void Jugador::devolverFichas(int cantidadFichasADevolver){
+	// Le resto cantidad de fichas al jugador, mientras la cantidad que
+	// tiene sea mayor a cero y hasta que cantidadFichasADevolver tambien sea mayor a cero
+	while(this->cantidadFichas > 0 && cantidadFichasADevolver > 0){
+		--this->cantidadFichas;
+		--cantidadFichasADevolver;
+	}
+};
+
+void Jugador::establecerFichasIniciales(int cantidadFichasIniciales){
+	this->cantidadFichas = cantidadFichasIniciales;
+}
+
+int Jugador::obtenerId(){
+	return this->idJugador;
+};
 
 /*
 Jugador::Jugador(){
@@ -81,9 +105,7 @@ void Jugador::establecerJugador(unsigned int jugador){
 	nroJugador = jugador;
 }
 
-void Jugador::establecerFichasTotal(){
-	cantidadFichas = MAX_FICHAS;
-}
+
 
 void Jugador::ingresarFicha(){
 	std::cout << "Ingrese ficha jugador " << nroJugador << " : ";
