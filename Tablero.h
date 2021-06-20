@@ -16,7 +16,7 @@ class Tablero {
         unsigned int numeroDeProfundidad;
 
         unsigned int cantidadDeCeldasVacias; //agrege esto porque podria ser util
-        Coordenadas* coordenadasDeUltimaCeldaAgregada;
+        Coordenadas* coordenadasDeUltimaCelda;
 
 
         /*  Ver para uso recursivo
@@ -84,9 +84,25 @@ class Tablero {
          * se agregan en forma apilada las fichas de cada jugador en la posicion
          * (coordenadaJugada->obtenerX(), coordenadaJugada->obtenerY(),z) del volumen del tablero, siendo
          * z la primera celda no ocupada contando desde abajo hacia arriba)
+         * Nota: las coordenadas se encuentran
+         * en el rango (1,1,1)--> (numeroDeFila, NumeroDeColumna, numeroDeProfundidad)
          */
 
         bool marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno);
+
+        /*Pre: Debe haber realizado al menos una jugada en el juego
+         *Post:Devuelve las coordenadas de la ultima jugada realizada;
+         *Las coordenadas estan el rango (1,1,1)--> (numeroDeFila, NumeroDeColumna, numeroDeProfundidad)
+         */
+
+       Coordenadas* obtenerUltimaJugada();
+
+        /*Pre: Debe haber realizado al menos una jugada en el juego
+         *Post: Borra todos los datos de la ultima jugada, quedando la celda en estado vacante
+         *Nota: el atributo coordenadasDeUltimaCelda no se actualiza.
+         */
+        void borrarUltimaJugada();
+
 
         /* Pre: Recibe el jugador en turno y la posicion valida donde quiere quiere colocar su ficha
         *  Pos: Verifica si un jugador gana

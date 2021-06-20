@@ -6,7 +6,7 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
     this->numeroDeFila = fila;
     this->numeroDeColumna = columna;
     this->numeroDeProfundidad = profundidad;
-    this->coordenadasDeUltimaCeldaAgregada = new Coordenadas(0,0,0);
+    this->coordenadasDeUltimaCelda = new Coordenadas(0,0,0);
 
     this->cantidadDeCeldasVacias = (this->numeroDeFila)*(this->numeroDeColumna)*(this->numeroDeProfundidad);
 
@@ -165,11 +165,12 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 
 			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
 			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
+
 			huboEspacioParaAgregarFicha = true;
-			//Se quitaran el comentar cuando se agreguen a Coordenada.h guardarX(int), guardarY(int)..etc
-			//this->coordenadasDeUltimaCeldaAgregada->guardarX(coordenadaJugada->obtenerX());
-			//this->coordenadasDeUltimaCeldaAgregada->guardarY(coordenadaJugada->obtenerX());
-			//this->coordenadasDeUltimaCeldaAgregada->guardarZ(coordenadaJugada->obtenerX());
+			this->coordenadasDeUltimaCelda->guardarX(coordenadaJugada->obtenerX());
+			this->coordenadasDeUltimaCelda->guardarY(coordenadaJugada->obtenerY());
+			this->coordenadasDeUltimaCelda->guardarZ(coordenadaJugada->obtenerZ());
+
 			this->cantidadDeCeldasVacias--;
 		}
 		posicionCelda++;
@@ -186,6 +187,26 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
     */
     return huboEspacioParaAgregarFicha;
 }
+
+Coordenadas* Tablero::obtenerUltimaJugada(){
+	Coordenadas* coordenadasUltimaJugada =
+			new Coordenadas(this->coordenadasDeUltimaCelda->obtenerX(),
+							this->coordenadasDeUltimaCelda->obtenerY(),
+							this->coordenadasDeUltimaCelda->obtenerZ());
+	return coordenadasUltimaJugada;
+}
+
+void Tablero:: borrarUltimaJugada(){
+	int posicionX = this->coordenadasDeUltimaCelda->obtenerX();
+	int posicionY = this->coordenadasDeUltimaCelda->obtenerY();
+	int posicionZ = this->coordenadasDeUltimaCelda->obtenerZ();
+
+	this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->cambiarValorDeCelda(' ');
+	this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->cambiarEstadoDeCelda();
+
+	this->cantidadDeCeldasVacias++;
+}
+
 
 bool Tablero::jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear){
 
