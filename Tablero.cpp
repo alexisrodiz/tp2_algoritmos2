@@ -1,12 +1,14 @@
 #include "Tablero.h"
 #include <iostream>
 
-Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad) {
+Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
+		unsigned int longitudLineaGanadora) {
 
     this->numeroDeFila = fila;
     this->numeroDeColumna = columna;
     this->numeroDeProfundidad = profundidad;
     this->coordenadasDeUltimaCelda = new Coordenadas(0,0,0);
+    this->longitudDeLineaGanadora = longitudLineaGanadora;
 
     this->cantidadDeCeldasVacias = (this->numeroDeFila)*(this->numeroDeColumna)*(this->numeroDeProfundidad);
 
@@ -208,9 +210,7 @@ void Tablero:: borrarUltimaJugada(){
 }
 
 
-bool Tablero::jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear){
-
-
+bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 
 	return true;
 }

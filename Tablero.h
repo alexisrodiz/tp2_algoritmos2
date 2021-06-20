@@ -15,6 +15,7 @@ class Tablero {
         unsigned int numeroDeColumna;
         unsigned int numeroDeProfundidad;
 
+        unsigned int longitudDeLineaGanadora;
         unsigned int cantidadDeCeldasVacias; //agrege esto porque podria ser util
         Coordenadas* coordenadasDeUltimaCelda;
 
@@ -41,10 +42,12 @@ class Tablero {
 
     public:
 
-        /* Pre: Recibe datos validos
-        *  Pos: Crea un tablero de 3 dimensiones, inicializando los casilleros en 0
+        /* Pre: Recibe datos validos de dimensiones mayores a 0 y una longitudLineaGanadora mayor a 0
+        *  Pos: Crea un tablero de 3 dimensiones, con todas las celdas vacias, y con longitud
+        *  de la linea ganadora 'longitudLineaGanadora'
         */
-        Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad);
+        Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
+        		unsigned int longitudLineaGanadora);
 
 
         /*Pre:
@@ -110,12 +113,11 @@ class Tablero {
         //void verificarGanador(Jugador jugadorEnTurno);
 
 
-        /* Pre: Recibe el jugador en turno "jugadorEnturno" y la longitud de la linea a chequear
-         * "longitudDeLineaAChequear", esta ultima debe ser un valor mayor a 1
+        /* Pre: Recibe el jugador en turno "jugadorEnturno" inicializado
          * Post: devuelve "true" en caso de que el jugador "jugadorEnTurno"(que contiene sus fichas
          * respectivas internamente) haya ganado la partida, devuelve false en caso de que no haya ganado
          */
-        bool jugadorGano(Jugador* jugadorEnTurno, unsigned int longitudDeLineaAChequear);
+        bool jugadorGano(Jugador* jugadorEnTurno);
 
         /*Nota: No usar, el metodo valido es: marcarJugada
          *Pre: coordenadas de posicion validas, ficha valida
