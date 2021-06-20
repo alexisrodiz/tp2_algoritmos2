@@ -23,3 +23,15 @@ int Coordenadas::obtenerY(){
 int Coordenadas::obtenerZ(){
     return this->z;
 }
+
+void Coordenadas::guardarX(int x){
+    this->x = x;
+};
+
+void Coordenadas::guardarY(int y){
+    this->y = y;
+};
+
+void Coordenadas::guardarZ(int z){
+    this->z = z;
+};

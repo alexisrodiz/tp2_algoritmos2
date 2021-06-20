@@ -40,9 +40,26 @@ class Coordenadas {
         int obtenerY();
 
         /*
+        * pre: Tener coordenada en Z
         * post: Devuelve la Coordenada en Z
         */
         int obtenerZ();
+
+        /*
+        * post: Actualiza el valor de la coordenada X
+        */
+        void guardarX(int x);
+
+        /*
+        * post: Actualiza el valor de la coordenada Y
+        */
+        void guardarY(int y);
+
+        /*
+        * post: Actualiza el valor de la coordenada Z
+        */
+        void guardarZ(int z);
+
 
         /*
         * post: Destructor de la clase
