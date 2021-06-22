@@ -2,13 +2,14 @@
 #define JUGADOR_H_
 
 //#include "Jugadores.h"
+#include <vector>
 #include "Carta.h"
 #include "Lista.h"
 #include "Mazo.h"
 #include "Coordenadas.h"
 
 
-const int cantidadMaximaCartas = 3;
+
 
 class Jugador{
 
@@ -23,7 +24,7 @@ private:
 
 	std::string nombre;
 
-	
+	int cantidadMaximaCartas;
 
 		/*
 	 * pre: tener cartas
@@ -40,11 +41,27 @@ public:
 	 * Pre: existir mazo
 	 * Post: saca una carta del mazo y la guarda (si hay lugar)
 	 */
-	void sacarCartaMazo(Mazo* mazo);	
+	void sacarCartaMazo(Mazo* mazo);
+
+	
+	/*
+	 * Pre: tener cartas
+	 * Post: Devuelve un vector de ids correspondientes a las cartas
+	 * en mano del jugador
+	 */
+	std::vector<int> obtenerIdsCartas();
+
+	/*
+	 * Pre: tener cartas
+	 * Post: Determina si el jugador tiene en mano la carta
+	 * pasada por parametro (idCarta)
+	 */
+	bool verificarSiTieneCartaPorId(int idCarta);
 
 	/*
 	 * Pre:
-	 * Post: puede o no usar una carta y colocar la ficha en el tablero
+	 * Post: solicita al jugador las coordenadas para colocar su ficha.
+	 * Admite un parametro para personalizar el mensaje mostrado en pantalla
 	 */
 	Coordenadas* realizarJugada();
 
@@ -76,6 +93,11 @@ public:
 	void devolverFichas(int cantidadFichas);
 
 	/*
+	 * Post:
+	 */
+	int obtenerCantidadFichas();
+
+	/*
 	 * Pre:
 	 * Post: Se establece la cantidad de fichas en total por jugador
 	 */
@@ -91,6 +113,10 @@ public:
 	 * Post: devuelve la carta en mano segun el valor pasado por parametro
 	 */
 	Carta* obtenerCartaPorValor(int valor);
+
+
+
+	~Jugador();
 
 };
 

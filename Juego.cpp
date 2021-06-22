@@ -1,5 +1,7 @@
 #include <iostream>
-#include <algorithm>
+#include <algorithm>    // std::find
+#include <iomanip>      // std::setw
+#include <cmath>
 #include "Juego.h"
 #include "Jugador.h"
 #include "Coordenadas.h"
@@ -14,23 +16,31 @@ Juego::Juego(){
 
     mazo = new Mazo;
 
+    this->porcentajeQuitarFichas = 5;
+
 }
 
 void Juego::agregarJugadores(){
     int i = 1;
-    int agregarOtroJugador = 0;
+    char agregarOtroJugador;
     string nombre;
     char ficha;
+    bool fichaExiste;
     do {
         cout << "Por favor ingrese el nombre del jugador " << i <<  endl;
         cin >> nombre;
         
-        do
-        { // Pide una ficha mientras exista en la lista de ficha ya utilizadas
+        do { // Pide una ficha mientras exista en la lista de ficha ya utilizadas
             cout << "Por favor, elija una ficha (letra)" << endl;
             cin >> ficha;
 
-        } while ( std::find(fichasUtilizadas.begin(), fichasUtilizadas.end(), ficha) != fichasUtilizadas.end() );
+            fichaExiste = (std::find(fichasUtilizadas.begin(), fichasUtilizadas.end(), ficha) != fichasUtilizadas.end());
+            if (fichaExiste){
+                cout << "La ficha elegida ya existe, por favor elija otra" << endl;
+            }
+            
+
+        } while ( fichaExiste );
         
         fichasUtilizadas.push_back(ficha);
         
@@ -39,23 +49,36 @@ void Juego::agregarJugadores(){
         jugadores->agregar(jugador);
 
         // Si ya se agregaron 2 jugadores, pregunto si se quieren agregar mas
-        if (i >= 2)
-        {
-            cout << "Desea agregar otro jugador? 1: SI, 0: NO" << endl;
-            cin >> agregarOtroJugador;
+        if (i >= 2) {
+            cout << "Desea agregar otro jugador? S: SI, N: NO" << endl;
+            cin >> setw(1) >> agregarOtroJugador;
         }
         
         ++i;
     }
-    while(i <= 2 || agregarOtroJugador != 0);
+    while(i <= 2 || tolower(agregarOtroJugador) == 's');
+
+    this->calcularCantidadFichasPorJugador();
     
 }
 
-/*
-Lista<Jugador *>* Juego::obtenerJugadores(){
-    return this->jugadores;
+int Juego::calcularCantidadFichasADevolver(Jugador* jugador){
+
+    return jugador->obtenerCantidadFichas() * (this->porcentajeQuitarFichas / 100);
 }
-*/
+
+void Juego::calcularCantidadFichasPorJugador(){
+    float total;
+    unsigned int x, y, z;
+    x = this->tablero->obtenerNumeroDeFila();
+    y = this->tablero->obtenerNumeroDeColumna();
+    z = this->tablero->obtenerNumeroDeProfundidad();
+    int cantidadJugadores = this->jugadores->contarElementos();
+    total = (x * y * z) / cantidadJugadores;
+    this->cantidadFichasPorJugador = floor(total);
+}
+
+
 void Juego::imprimirJugadores(){
     jugadores->iniciarCursor();
     while (jugadores->avanzarCursor())
@@ -79,6 +102,9 @@ Jugador* Juego::obtenerJugadorPorId(int id){
 };
 
 void Juego::iniciar(){
+    cout << "Iniciando juego..." << endl;
+
+    bool jugadorGano = false;
 
     this->tablero->mostrarTablero();
 
@@ -86,63 +112,50 @@ void Juego::iniciar(){
 
     this->jugadores->iniciarCursor();
 
-    Jugador* jugadorActual, * jugadorSeleccionado = NULL;
+    Jugador* jugadorActual = NULL;
 
     // Ver tema de lista circular para recorrer los jugadores
-    while(this->jugadores->avanzarCursor()){
+    while(this->jugadores->avanzarCursor() && jugadorGano == false){
         bool jugadaMarcada;
-        int numeroJugador;
         int valorCartaJugada;
-        int usarCartas = 0;
+        char usarCartas;
+        bool tieneCartaSeleccionada;
 
         Coordenadas* coordenadaJugada = NULL;
 
         Carta* cartaJugada = NULL;
 
         jugadorActual = this->jugadores->obtenerCursor();
+
+        cout << "TURNO: " << jugadorActual->obtenerNombre() << "(" << jugadorActual->obtenerId() << ")" << endl;
         
-        cout << "Retirando una carta del mazo..." << endl;
+        cout << "\nRetirando una carta del mazo..." << endl;
         jugadorActual->sacarCartaMazo(this->mazo);
 
-        cout << "Tus cartas en mano son: " << endl;
+        cout << "\nTus cartas en mano son: " << endl;
 	    jugadorActual->imprimirCartasEnMano();
 
-        cout << "Usar carta? 1: SI - 0: NO" << endl;
+        cout << "\nUsar alguna carta? S: SI - N: NO" << endl;
         cin >> usarCartas;
 
-        if (usarCartas == 1){
-            cout << "Indique el valor de la carta a utilizar: " << endl;
-            cin >> valorCartaJugada; // falta chequear que el valor esté entre los aceptados (1-4)
+        if (tolower(usarCartas) == 's'){
+
+            do {
+                cout << "Indique el valor de la carta a utilizar: " << endl;
+                cin >> setw(1) >> valorCartaJugada;
+
+                tieneCartaSeleccionada = jugadorActual->verificarSiTieneCartaPorId(valorCartaJugada);
+                if (tieneCartaSeleccionada == false){
+                    cout << "No tiene esa carta en mano, elija otra por favor" << endl;
+                }
+
+            } while (tieneCartaSeleccionada == false);
+            
+             
 
             cartaJugada = jugadorActual->obtenerCartaPorValor(valorCartaJugada);
 
-            //this->procesarCarta(cartaJugada, jugador);
-
-            switch (cartaJugada->obtenerValor()){
-                case 1:
-                    /* Bloquear turno del siguiente jugador (saltea el siguiente) */
-                    cout << "¡Bloqueando turno del siguiente jugador!" << endl;
-                    this->obtenerJugadores()->avanzarCursor();
-                    break;
-                case 2:
-                    /* Jugar doble */
-                    cout << "¡Jugando Doble!" << endl;
-                    jugadorActual->realizarJugada();
-                    break;
-                case 3:
-                    /* Deshacer ultima jugada */
-                    this->tablero->borrarUltimaJugada();
-                    break;
-                case 4:
-                    /* Restar n cantidad de fichas a un jugador */
-                    cout << "Seleccione el ID del jugador al que desea quitarle las fichas: " << endl;
-                    this->imprimirJugadores();
-                    cin >> numeroJugador;
-                    jugadorSeleccionado = this->obtenerJugadorPorId(numeroJugador);
-
-                    jugadorSeleccionado->devolverFichas(5); // Calcular porcentaje fichas a quitar
-                    break;
-            }
+            this->procesarCarta(cartaJugada, jugadorActual);
 
         }
 
@@ -157,33 +170,49 @@ void Juego::iniciar(){
         }
         while(jugadaMarcada == false);
 
-
-
-        
         this->tablero->mostrarTablero();
 
+        jugadorGano = this->tablero->jugadorGano(jugadorActual);
+
     }
+
+    if (jugadorGano){
+        cout << "Ha ganado el jugador: " << jugadorActual->obtenerNombre() << endl;
+    }
+
 }
 
-/*
-void Juego::procesarCarta(Carta* carta, Jugador* jugador){
-    switch (carta->obtenerValor()){
+
+void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){
+    int idJugador;
+    switch (cartaJugada->obtenerValor()){
         case 1:
             // Bloquear turno del siguiente jugador (saltea el siguiente) 
-            cout << "¡Bloqueando turno del siguiente jugador!" << endl;
+            cout << "Bloqueando turno del siguiente jugador!" << endl;
             this->jugadores->avanzarCursor();
             break;
         case 2:
             // Jugar doble 
-            cout << "¡Jugando Doble!" << endl;
-            jugador->realizarJugada();
+            cout << "Jugando Doble!" << endl;
+            jugadorActual->realizarJugada();
+            cout << "Otra vez!" << endl;
             break;
         case 3:
             // Deshacer ultima jugada 
-
+            cout << "Deshaciendo ultima jugada!" << endl;
+            this->tablero->borrarUltimaJugada();
             break;
         case 4:
-            // code 
+            // Restar n cantidad de fichas a un jugador 
+            cout << "Seleccione el ID del jugador al que desea quitarle fichas: " << endl;
+            this->imprimirJugadores();
+            cin >> idJugador;
+            Jugador* jugadorSeleccionado = this->obtenerJugadorPorId(idJugador);
+
+            int cantidadFichas = this->calcularCantidadFichasADevolver(jugadorSeleccionado);
+
+            jugadorSeleccionado->devolverFichas(cantidadFichas);
+
             break;
     }
-}*/
+}

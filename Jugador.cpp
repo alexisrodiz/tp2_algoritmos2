@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>    // std::find
+#include <cstring>		// string.empty()
 #include "Jugador.h"
 using namespace std;
 
@@ -9,6 +11,7 @@ Jugador::Jugador(string nombre, char ficha, int numeroJugador) {
 	this->fichaAsignada = ficha;
 	this->nombre = nombre;
 	this->idJugador = numeroJugador;
+	this->cantidadMaximaCartas = 3;
 }
 
 void Jugador::sacarCartaMazo(Mazo* mazo) {
@@ -17,6 +20,24 @@ void Jugador::sacarCartaMazo(Mazo* mazo) {
 		cartas->agregar(carta);
 	}
 }
+
+vector<int> Jugador::obtenerIdsCartas(){
+	vector<int> ids;
+	this->cartas->iniciarCursor();
+	while(this->cartas->avanzarCursor()){
+		ids.push_back(this->cartas->obtenerCursor()->obtenerValor());
+	}
+	return ids;
+};
+
+bool Jugador::verificarSiTieneCartaPorId(int idCarta){
+	vector<int> idsCartas = this->obtenerIdsCartas();
+	if ( std::find(idsCartas.begin(), idsCartas.end(), idCarta) != idsCartas.end() ){
+		return true;
+	}
+	return false;
+}
+
 
 Lista<Carta*>* Jugador::obtenerCartas(){
 	return this->cartas;
@@ -36,15 +57,19 @@ void Jugador::imprimirCartasEnMano(){
 
 	while(cartas->avanzarCursor()){
 		Carta* carta = cartas->obtenerCursor();
-		cout << carta->obtenerTipo() << ": " << carta->obtenerValor() << endl;
+		cout << "\tID " << carta->obtenerValor() << ": " << carta->obtenerTipo()  << endl;
 	}
 }
 
+int Jugador::obtenerCantidadFichas(){
+	return this->obtenerCantidadFichas();
+}
+
 Coordenadas* Jugador::realizarJugada(){
-	int x ;
-	int y ;
+	int x, y ;
 
 	cout << "Indique una ubicacion para colocar la ficha: " << endl;
+	
 	cout << "Coordenada x : " << endl;
 	cin >> x;
 	cout << "Coordenada y : " << endl;

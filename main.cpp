@@ -1,8 +1,5 @@
 #include <iostream>
-#include "Tablero.h"
 #include "Juego.h"
-#include "Mazo.h"
-
 
 int main() {
 

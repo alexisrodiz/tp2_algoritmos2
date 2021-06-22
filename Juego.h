@@ -21,11 +21,10 @@ class Juego {
 
     Mazo* mazo;
 
-    /*
-    * pre: Haber agregado los jugadores
-    * post: Devuelve la lista de jugadores
-    */
-    Lista<Jugador *>* obtenerJugadores();
+    unsigned int cantidadFichasPorJugador;
+
+    unsigned int porcentajeQuitarFichas;
+
 
     public:
 
@@ -34,6 +33,20 @@ class Juego {
     * post: Crea un juego
     */
     Juego();
+
+    /*
+    * pre: jugadores crados
+    * post: calcula la cantidad de fichas que le corresponde a cada jugador, teniendo
+    * en cuenta la cantidad de jugadores y el tamaño del tablero
+    */
+    void calcularCantidadFichasPorJugador();
+
+    /*
+    * pre: jugadores crados
+    * post: calcula la cantidad de fichas que deberia devolver un jugador en base a un
+    * porcentaje fijado
+    */
+    int calcularCantidadFichasADevolver(Jugador* jugador);
 
 
     /*
