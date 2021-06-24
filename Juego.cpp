@@ -10,13 +10,13 @@ using namespace std;
 
 Juego::Juego(){
 
-    tablero = new Tablero(2, 2, 2, 4);
-
     jugadores = new Lista<Jugador*>;
 
     mazo = new Mazo;
 
     this->porcentajeQuitarFichas = 5;
+
+    this->nEnLinea = 4;
 
 }
 
@@ -101,8 +101,47 @@ Jugador* Juego::obtenerJugadorPorId(int id){
 	return jugador;
 };
 
+void Juego::agregarTablero(){
+    int x, y, z, minimo;
+    vector<int> dimensionesTablero;
+
+    do {
+        cout << "Por favor indique las dimensiones del tablero" << endl;
+        cout << "\nLargo (Minimo: 3, Maximo: 100): ";
+        cin >> x;
+    }
+    while (x < 3 || x > 100);
+
+    do {
+        cout << "\nAncho (Minimo: 3, Maximo: 100): ";
+        cin >> y;
+    }
+    while( y < 3 || y > 100);
+
+    do {
+        cout << "\nProfundidad (Minimo: 3, Maximo: 100): ";
+        cin >> z;
+    }
+    while(z < 3 || z > 100);
+
+    dimensionesTablero.push_back(x);
+    dimensionesTablero.push_back(y);
+    dimensionesTablero.push_back(z);
+    
+    // Obtengo el minimo de las 3 dimensiones del tablero para asignarlo como
+    // el nEnLinea para ganar el juego
+    minimo = *min_element(dimensionesTablero.begin(), dimensionesTablero.end());
+
+    Tablero* tablero = new Tablero(x, y, z, minimo);
+
+    this->tablero = tablero;
+    
+};
+
 void Juego::iniciar(){
     cout << "Iniciando juego..." << endl;
+
+    this->agregarTablero();
 
     bool jugadorGano = false;
 

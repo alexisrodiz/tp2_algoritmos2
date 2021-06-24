@@ -25,6 +25,8 @@ class Juego {
 
     unsigned int porcentajeQuitarFichas;
 
+    unsigned int nEnLinea;
+
 
     public:
 
@@ -65,6 +67,11 @@ class Juego {
     * post: Solicita nombre y ficha para crear y agregar los jugadores a la lista
     */
     void agregarJugadores();
+
+    /*
+    * post: Solicita nombre y ficha para crear y agregar los jugadores a la lista
+    */
+    void agregarTablero();
 
     /*
     * pre: recibe una instancia de tablero como parametro
