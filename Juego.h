@@ -25,6 +25,8 @@ class Juego {
 
     unsigned int porcentajeQuitarFichas;
 
+    unsigned int cantidadFichasADevolverJugador;
+
     unsigned int nEnLinea;
 
 
@@ -48,7 +50,7 @@ class Juego {
     * post: calcula la cantidad de fichas que deberia devolver un jugador en base a un
     * porcentaje fijado
     */
-    int calcularCantidadFichasADevolver(Jugador* jugador);
+    int calcularCantidadFichasADevolverJugador();
 
 
     /*

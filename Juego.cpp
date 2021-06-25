@@ -16,7 +16,7 @@ Juego::Juego(){
 
     this->porcentajeQuitarFichas = 5;
 
-    this->nEnLinea = 4;
+    this->cantidadFichasADevolverJugador = this->calcularCantidadFichasADevolverJugador();
 
 }
 
@@ -62,9 +62,8 @@ void Juego::agregarJugadores(){
     
 }
 
-int Juego::calcularCantidadFichasADevolver(Jugador* jugador){
-
-    return jugador->obtenerCantidadFichas() * (this->porcentajeQuitarFichas / 100);
+int Juego::calcularCantidadFichasADevolverJugador(){
+    return this->cantidadFichasPorJugador * (this->porcentajeQuitarFichas / 100);
 }
 
 void Juego::calcularCantidadFichasPorJugador(){
@@ -248,9 +247,7 @@ void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){
             cin >> idJugador;
             Jugador* jugadorSeleccionado = this->obtenerJugadorPorId(idJugador);
 
-            int cantidadFichas = this->calcularCantidadFichasADevolver(jugadorSeleccionado);
-
-            jugadorSeleccionado->devolverFichas(cantidadFichas);
+            jugadorSeleccionado->devolverFichas(this->cantidadFichasADevolverJugador);
 
             break;
     }
