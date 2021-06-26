@@ -2,7 +2,7 @@
 
 Celda::Celda() {
 
-    this->valorDeLaCelda = '*';
+    this->valorDeLaCelda = (char)' ';
     this->estaVacia = true;
 
 }
