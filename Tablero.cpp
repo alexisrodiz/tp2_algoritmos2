@@ -14,27 +14,27 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
 
     this->fila = new Lista< Lista< Lista<Celda*>* >* >();
 
-    for (unsigned int x = 1; x <= this->numeroDeColumna; x++) {
+    for (unsigned int x = 1; x <= this->numeroDeFila; x++) {
         
         Lista< Lista<Celda*>* >* columna = new Lista< Lista<Celda*>* >();
         
 
-        for (unsigned int y = 1; y <= this->numeroDeFila; y++) {
+        for (unsigned int y = 1; y <= this->numeroDeColumna; y++) {
 
             Lista<Celda*>* profundidad = new Lista<Celda*>();
 
             for (unsigned int z = 1; z <= this->numeroDeProfundidad; z++) {
                 
                 Celda* celda = new Celda();
-                profundidad->agregar(celda,z);
+                profundidad->agregar(celda);
 
             };
             
-            columna->agregar(profundidad,y);
+            columna->agregar(profundidad);
                 
         };
 
-        this->fila->agregar(columna,x);
+        this->fila->agregar(columna);
     };
     
 };
@@ -46,79 +46,68 @@ bool Tablero:: hayCeldasVacias(){
 
 void Tablero::mostrarTablero() {
 
-    for (unsigned int x = 1; x <= obtenerNumeroDeColumna(); x++) {
-        
-        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
-            
-            for (unsigned int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
-
-                std::cout << this->fila->obtener(x)->obtener(y)->obtener(z)->obtenerValorDeCelda() << std::endl;
-            };
-            
-        };
-        
-    };
+    mostrarTableroXY();
+    mostrarTableroYZ();
 
 };
 
 void Tablero::mostrarTableroXY() {
 
-    char valorDeLaCelda;
+    std::cout << std::endl;
 
-    for (unsigned int x = 1; x <= obtenerNumeroDeColumna(); x++) {
+    Lista< Lista< Lista<Celda*>* >* >* fila = obtenerFila();
+    fila->iniciarCursor();
+    while (fila->avanzarCursor()) {
         
-        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
-
-            bool filaLlena = false;
-            obtenerFila()->obtener(x)->obtener(y)->iniciarCursor();
+        Lista< Lista<Celda*>* >* columna = fila->obtenerCursor();
+        columna->iniciarCursor();
+        while (columna->avanzarCursor()) {
             
-            while (filaLlena == false || obtenerFila()->obtener(x)->obtener(y)->avanzarCursor()) {
+            Lista<Celda*>* profundidad = columna->obtenerCursor();
+            profundidad->iniciarCursor();
+            profundidad->avanzarCursor();
 
-                valorDeLaCelda = obtenerFila()->obtener(x)->obtener(y)->obtenerCursor()->obtenerValorDeCelda();
-                if(valorDeLaCelda != ' ') {
+            std::cout << " | ";
+            std::cout << profundidad->obtenerCursor()->obtenerValorDeCelda() << " | ";
 
-                    filaLlena = true;
-
-                };
-
-            };
-
-            std::cout << valorDeLaCelda << std::endl;
-            
         };
         
+        std::cout << std::endl;
+
     };
+    
+    std::cout << std::endl;
+    std::cout << "Plano XY del tablero" << std::endl;
 
 };
 
 void Tablero::mostrarTableroYZ() {
 
-    char valorDeLaCelda;
+    std::cout << std::endl;
 
-    for (unsigned int z = 1; z <= obtenerNumeroDeProfundidad(); z++) {
-
-        for (unsigned int y = 1; y <= obtenerNumeroDeFila(); y++) {
-
-            bool filaLlena = false;
-            obtenerFila()->iniciarCursor();
-
-            while (filaLlena == false || obtenerFila()->avanzarCursor()) {
-
-                valorDeLaCelda = obtenerFila()->obtenerCursor()->obtener(y)->obtener(z)->obtenerValorDeCelda();
-                if(valorDeLaCelda != ' ') {
-
-                    filaLlena = true;
-
-                };
-
-            };
-
-            std::cout << valorDeLaCelda << std::endl;
-
-        };
+    Lista< Lista< Lista<Celda*>* >* >* fila = obtenerFila();
+    fila->iniciarCursor();
+     while (fila->avanzarCursor()) {
         
+        Lista< Lista<Celda*>* >* columna = fila->obtenerCursor();
+        columna->iniciarCursor();
+        columna->avanzarCursor();
+        Lista<Celda*>* profundidad = columna->obtenerCursor();
+        profundidad->iniciarCursor();
+        while (profundidad->avanzarCursor()) {
+            
+            std::cout << " | ";
+            std::cout << profundidad->obtenerCursor()->obtenerValorDeCelda() << " | ";
+
+        }
+        
+        std::cout << std::endl;
+
     };
     
+    std::cout << std::endl;
+    std::cout << "Plano YZ del tablero" << std::endl;
+
 };
 
 Lista< Lista< Lista<Celda*>* >* >* Tablero::obtenerFila() {
