@@ -4,8 +4,9 @@
 
 #include "EasyBMP.h"
 
-/*Colores es un TDA que permite representar un color del tipo RGB, cada color se crea con
- *valores de rojo, verde y azul con valores enteros entre 0 y 256*/
+/*Colores es un TDA que permite crear y representar un color del tipo RGB, cada color se crea con
+ *valores de rojo, verde y azul, cada uno de estos posee valores enteros entre 0 y 256 los cuales
+ *representan la intensidad de cada uno*/
 
 
 class Colores{
@@ -20,6 +21,11 @@ public:
 	 *post: crea un color del tipo rgb
 	 */
 	Colores(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
+
+	/*pre:
+	 *post: libera los recursos del sistema.
+	 */
+	~Colores();
 
 	/*pre: "nuevaTonalidadDeRojo" es un entero en el rango [0..255]
 	 *post: guarda la nueva tonalidad de Rojo en el color
@@ -47,11 +53,6 @@ public:
 	 *post: devuelve la tonalidad de azul almacenada en la estructura
 	 */
 	ebmpBYTE devolverTonalidadAzul();
-
-	/*pre:
-	 *post: libera los recursos del sistema.
-	 */
-	~Colores();
 
 };
 
