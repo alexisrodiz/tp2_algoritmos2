@@ -15,7 +15,7 @@ class Ficha {
         /* Pre: Recibe un color
         *  Pos: Crea una Ficha con valorDeLaFicha = ' ' y con su color
         */
-        Ficha(Colores* colorDeLaFicha);
+        Ficha(Colores* colorDeLaFicha, char valorDeLaFicha);
 
         /* Pre: 
         *  Pos: Retorna el color de la ficha

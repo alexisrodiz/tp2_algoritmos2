@@ -1,9 +1,9 @@
 #include "Ficha.h"
 
-Ficha::Ficha(Colores* colorDeLaFicha) {
+Ficha::Ficha(Colores* colorDeLaFicha, char valorDeLaFicha) {
 
     this->colorDeLaFicha = colorDeLaFicha;
-    this->valorDeLaFicha = (char)' ';
+    this->valorDeLaFicha = valorDeLaFicha;
 
 }
 
