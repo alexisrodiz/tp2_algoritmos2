@@ -5,7 +5,7 @@
 #include "EasyBMP.h"
 
 /*Colores es un TDA que permite crear y representar un color del tipo RGB, cada color se crea con
- *valores de rojo, verde y azul, cada uno de estos posee valores enteros entre 0 y 256 los cuales
+ *valores de rojo, verde y azul, cada uno de estos posee valores enteros entre 0 y 255 los cuales
  *representan la intensidad de cada uno*/
 
 
