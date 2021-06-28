@@ -1,29 +1,31 @@
 #ifndef CELDA_H_
 #define CELDA_H_
 
+#include "Ficha.h"
+
 class Celda {
 
     private:
 
-        char valorDeLaCelda;
+        Ficha* ficha;
         bool estaVacia;
 
-        /* Posibles valores de:
-        *  valorDeLaCelda = " " | Jugador->marca
-        *  estaVacia = true | false
+        /* Pre: 
+        *  Pos: Retorna la Ficha
         */
+        Ficha* obtenerFicha();
         
     public:
 
         /* Pre: 
-        *  Pos: Crea una Celda con valorDeLaCelda = '' y estadoDeLaCelda = 'vacia'
+        *  Pos: Crea una Celda con su Ficha y estaVacia = true
         */
         Celda();
 
         /* Pre: 
-        *  Pos: Cambia el valor actual de la Celda
+        *  Pos: Cambia el puntero ficha de Null a una Ficha
         */
-        void cambiarValorDeCelda(char valorNuevo);
+        void colocarFicha(Ficha* fichaDeJugador);
 
         /* Pre: 
         *  Pos: Retorna el valor de la Celda

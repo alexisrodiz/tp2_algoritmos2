@@ -2,26 +2,34 @@
 
 Celda::Celda() {
 
-    this->valorDeLaCelda = (char)' ';
+    this->ficha = NULL;
     this->estaVacia = true;
 
 }
 
-void Celda::cambiarValorDeCelda(char nuevoValor) {
+Ficha* Celda::obtenerFicha() {
 
-    this->valorDeLaCelda = nuevoValor;
+    return this->ficha;
+
+}
+
+void Celda::colocarFicha(Ficha* fichaDeJugador) {
+
+    Ficha* ficha = obtenerFicha();
+    ficha = fichaDeJugador;
 
 }
 
 char Celda::obtenerValorDeCelda() {
 
-    return this->valorDeLaCelda;
+    return obtenerEstaVacia() ? (char)' ' : obtenerFicha()->obtenerValorDeLaFicha();
 
 }
 
 void Celda::cambiarEstadoDeCelda() {
 
-    this->estaVacia = !estaVacia; //aca lo cambie porque devolvia siempre falso
+    bool estadoDelaCelda = obtenerEstaVacia();
+    estadoDelaCelda = !estaVacia;
 
 }
 
@@ -31,4 +39,8 @@ bool Celda::obtenerEstaVacia() {
 
 }
 
-Celda::~Celda() {}
+Celda::~Celda() {
+
+    delete this->ficha;
+
+}
