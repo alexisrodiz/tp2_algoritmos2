@@ -28,6 +28,11 @@ class Celda {
         void colocarFicha(Ficha* fichaDeJugador);
 
         /* Pre: 
+        *  Pos: Vacia la Celda apuntado ficha a NULL y borrando la Ficha
+        */
+        void vaciarCelda();
+
+        /* Pre: 
         *  Pos: Retorna el valor de la Celda
         */
         char obtenerValorDeCelda();

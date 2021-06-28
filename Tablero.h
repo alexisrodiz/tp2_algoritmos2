@@ -58,7 +58,6 @@ class Tablero {
         /* Pre:
         *  Pos: Muestra el tablero por consola
         *
-        *  Es solo de prueba -> borrar luego
         */
         void mostrarTablero();
         

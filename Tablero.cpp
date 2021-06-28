@@ -1,4 +1,5 @@
 #include "Tablero.h"
+#include "Ficha.h"
 #include <iostream>
 
 Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
@@ -154,7 +155,12 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 		if (listaProfundidad->obtenerCursor()->obtenerEstaVacia()){
 			posicionVaciaNoEncontrada = false;
 
-			listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
+            //Ver como obtener Colores
+            Ficha* ficha = new Ficha(jugadorEnTurno.obtenerColor());
+
+            //Nuevo metodo para colocar una Ficha
+			//listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
+            listaProfundidad->obtener(posicionCelda)->colocarFicha(ficha);
 			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
 
 			huboEspacioParaAgregarFicha = true;
@@ -184,7 +190,10 @@ void Tablero:: borrarUltimaJugada(){
 	int posicionY = this->coordenadasDeUltimaCelda->obtenerY();
 	int posicionZ = this->coordenadasDeUltimaCelda->obtenerZ();
 
-	this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->cambiarValorDeCelda(' ');
+    //nuevo metodo para borrar la jugada o vaciar la celda en caso de crear otra carta parecida
+	//this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->cambiarValorDeCelda(' ');
+
+    this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->vaciarCelda();
 	this->obtenerFila()->obtener(posicionX)->obtener(posicionY)->obtener(posicionZ)->cambiarEstadoDeCelda();
 
 	this->cantidadDeCeldasVacias++;

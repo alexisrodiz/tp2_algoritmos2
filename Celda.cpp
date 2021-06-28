@@ -20,6 +20,14 @@ void Celda::colocarFicha(Ficha* fichaDeJugador) {
 
 }
 
+void Celda::vaciarCelda() {
+
+    Ficha* fichaAuxiliar = obtenerFicha();
+    this->ficha = NULL;
+    delete fichaAuxiliar;
+
+}
+
 char Celda::obtenerValorDeCelda() {
 
     return obtenerEstaVacia() ? (char)' ' : obtenerFicha()->obtenerValorDeLaFicha();
@@ -41,6 +49,10 @@ bool Celda::obtenerEstaVacia() {
 
 Celda::~Celda() {
 
-    delete this->ficha;
+    if(!obtenerEstaVacia()) {
+
+        delete obtenerFicha();
+
+    }
 
 }
