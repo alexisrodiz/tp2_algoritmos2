@@ -23,7 +23,7 @@ public:
 	Colores(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
 	/*pre:
-	 *post: libera los recursos del sistema.
+	 *post: libera los recursos del sistema..
 	 */
 	~Colores();
 

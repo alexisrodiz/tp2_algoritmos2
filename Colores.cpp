@@ -1,7 +1,7 @@
 #include "Colores.h"
 
 
-
+	/*constructor*/
 	Colores::Colores(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul){
 		this->estructuraDeColor = new RGBApixel;
 		this->estructuraDeColor->Red = rojo;
