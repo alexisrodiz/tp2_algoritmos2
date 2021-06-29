@@ -1,5 +1,6 @@
 #include "Tablero.h"
 #include "Ficha.h"
+#include "Coordenadas.h" //ver si no es necesario
 #include <iostream>
 
 Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
@@ -27,6 +28,9 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
             for (unsigned int z = 1; z <= this->numeroDeProfundidad; z++) {
                 
                 Celda* celda = new Celda();
+                celda->obtenerCoordenadas()->guardarX(x);
+                celda->obtenerCoordenadas()->guardarY(y);
+                celda->obtenerCoordenadas()->guardarZ(z);
                 profundidad->agregar(celda);
 
             };
