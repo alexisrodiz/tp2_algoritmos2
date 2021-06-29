@@ -2,6 +2,7 @@
 #define CELDA_H_
 
 #include "Ficha.h"
+#include "Coordenadas.h"
 
 class Celda {
 
@@ -9,6 +10,8 @@ class Celda {
 
         Ficha* ficha;
         bool estaVacia;
+        Coordenadas* coordenadas;
+        Celda* vecinas[3][3][3];
 
         /* Pre: 
         *  Pos: Retorna la Ficha
