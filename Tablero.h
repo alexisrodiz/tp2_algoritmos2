@@ -152,8 +152,15 @@ class Tablero {
         */
         unsigned int obtenerNumeroDeProfundidad();
         
+        /*
+         *Pre: coordenadas->obtenerX(), coordenadas->obtenerX(), coordenadas->obtenerX()
+         *en el rango de las dimensiones del tablero respectivas
+         *Post: devuelve el puntero a la celda cuyas "coordenadas" ingresaron como parametro
+         */
+
+        Celda* buscarCelda(Coordenadas* coordenadas);
         																																					/* Pre:
-        *  Pos: Detruye el tablero
+        *  Pos: Destruye el tablero
         */
         ~Tablero();
 

@@ -55,6 +55,18 @@ bool Celda::obtenerEstaVacia() {
 
 }
 
+Coordenadas* Celda::obtenerCoordenadas(){
+	return this->coordenadas;
+}
+
+void Celda::guardarVecina(Celda* celdaVecina, int x, int y, int z){
+	this->vecinas[x][y][z] = celdaVecina;
+}
+
+Celda* Celda::obtenerVecina(int x, int y, int z){
+	return this->vecinas[x][y][z];
+}
+
 Celda::~Celda() {
 
     if(!obtenerEstaVacia()) {

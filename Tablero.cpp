@@ -1,6 +1,5 @@
 #include "Tablero.h"
 #include "Ficha.h"
-#include "Coordenadas.h" //ver si no es necesario
 #include <iostream>
 
 Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
@@ -211,7 +210,7 @@ bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 
 bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha){
 
-	//Jugador jugadorEnTurno(2);
+	//Jugador jugadorEnTurno(2).;
 	unsigned int cantidadElementosEnUso =this->obtenerFila()->obtener(fila)->obtener(columna)->contarElementos();
 
 	if (cantidadElementosEnUso < this->obtenerNumeroDeProfundidad()) {
@@ -219,6 +218,11 @@ bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha)
 	}
 
 	return false;
+}
+
+Celda* Tablero::buscarCelda(Coordenadas* coordenadas){
+	return this->obtenerFila()->obtener(coordenadas->obtenerX())->
+			obtener(coordenadas->obtenerY())->obtener(coordenadas->obtenerZ());
 }
 
 Tablero::~Tablero() {

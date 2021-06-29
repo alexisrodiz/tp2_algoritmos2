@@ -50,6 +50,26 @@ class Celda {
         */
         bool obtenerEstaVacia();
 
+        /*
+         * Pre:
+         * Post: Devuelve las coordenadas de la celda
+         */
+        Coordenadas* obtenerCoordenadas();
+
+        /*
+         *Pre: x, y , z en el rango [-1,1], son las coordenadas relativas a la celda principal
+         *Post: guardado puntero a celdaVecina en la posicion relativa x, y, z con respecto
+         * a la celda principal.
+         */
+
+        void guardarVecina(Celda* celdaVecina, int x, int y, int z);
+
+        /* Pre: x, y , z en el rango [-1,1], son las coordenadas relativas a la celda
+         * Pos: devuelve el puntero a la celda vecina correspondiente segun las coordenadas x, y, z.
+         */
+
+        Celda* obtenerVecina(int x, int y, int z);
+
         /* Pre: 
         *  Pos: Destruye la Celda
         */
