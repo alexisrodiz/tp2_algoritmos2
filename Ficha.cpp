@@ -19,6 +19,11 @@ char Ficha::obtenerValorDeLaFicha() {
 
 }
 
+bool Ficha::valoresFichaIguales(char valorFicha){
+	return valorFicha == this->valorDeLaFicha;
+}
+
+
 Ficha::~Ficha() {
 
     delete this->colorDeLaFicha;

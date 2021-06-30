@@ -30,6 +30,13 @@ class Ficha {
         /* Pre: 
         *  Pos: Destruye la Ficha
         */
+
+        /*Pre:
+         *Pos: devuelve el booleano "true" si las fichas son iguales, "false" en caso contrario
+         */
+
+        bool valoresFichaIguales(char valorFicha);
+
         ~Ficha();
 
 };

@@ -60,11 +60,14 @@ Coordenadas* Celda::obtenerCoordenadas(){
 }
 
 void Celda::guardarVecina(Celda* celdaVecina, int x, int y, int z){
-	this->vecinas[x][y][z] = celdaVecina;
+	this->vecinas[x+1][y+1][z+1] = celdaVecina;  // se agrega +1 pues -1 < x, y, z < 1
 }
 
 Celda* Celda::obtenerVecina(int x, int y, int z){
-	return this->vecinas[x][y][z];
+	if (x == 0 && y == 0 && z == 0){
+		return NULL;
+	}
+	return this->vecinas[x+1][y+1][z+1]; // se agrega +1 pues -1 < x, y, z < 1
 }
 
 Celda::~Celda() {

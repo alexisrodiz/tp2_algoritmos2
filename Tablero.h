@@ -158,7 +158,7 @@ class Tablero {
          *Post: devuelve el puntero a la celda cuyas "coordenadas" ingresaron como parametro
          */
 
-        Celda* buscarCelda(Coordenadas* coordenadas);
+        Celda* buscarCelda(int x, int y, int z);
         																																					/* Pre:
         *  Pos: Destruye el tablero
         */

@@ -13,10 +13,7 @@ class Celda {
         Coordenadas* coordenadas;
         Celda* vecinas[3][3][3];
 
-        /* Pre: 
-        *  Pos: Retorna la Ficha
-        */
-        Ficha* obtenerFicha();
+
         
     public:
 
@@ -56,15 +53,21 @@ class Celda {
          */
         Coordenadas* obtenerCoordenadas();
 
-        /*
-         *Pre: x, y , z en el rango [-1,1], son las coordenadas relativas a la celda principal
+        /* Pre:
+        *  Pos: Retorna la Ficha
+        */
+        Ficha* obtenerFicha();
+
+ 	 	 /* Pre: x, y , z en el rango [-1,1], son las coordenadas de las vecinas relativas a la celda
+         * que esta en [0][0][0]
          *Post: guardado puntero a celdaVecina en la posicion relativa x, y, z con respecto
          * a la celda principal.
          */
 
         void guardarVecina(Celda* celdaVecina, int x, int y, int z);
 
-        /* Pre: x, y , z en el rango [-1,1], son las coordenadas relativas a la celda
+        /* Pre: x, y , z en el rango [-1,1], son las coordenadas de las vecinas relativas a la celda
+         * que esta en [0][0][0]
          * Pos: devuelve el puntero a la celda vecina correspondiente segun las coordenadas x, y, z.
          */
 

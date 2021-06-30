@@ -41,6 +41,43 @@ Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundid
         this->fila->agregar(columna);
     };
     
+    /************Esta porcion agrega el cubo de celdas vecinas a cada celda*/
+    /*1.- No se puede hacer esta accion al crear celdas, ya que no todas estan definidas
+     *en el tablero en el momento en que se agrega cada una y se necesitan de todas sus vecinas
+     *
+     *2.- Las celdas que no estan en la frontera poseen sus 26 vecinas completas y que apuntan a otras
+     *celdas existentes, las celdas que estan en la frontera tienen algunas vecinas que no apuntan a nada
+     *(celdas en el exterior del tablero) dichas vecinas en el exterior del tablero apuntan a NULL.
+     *
+     *3.- La estructura de celdas vecinas en para cada celda queda fija a lo largo del juego.
+     */
+    this->obtenerFila()->iniciarCursor();
+    while(this->obtenerFila()->avanzarCursor()){
+    	Lista<Lista<Celda*>*>* columnaAuxiliar = this->obtenerFila()->obtenerCursor();
+    	columnaAuxiliar->iniciarCursor();
+
+    	while(columnaAuxiliar->avanzarCursor()){
+    		Lista<Celda*>* profundidadAuxiliar = columnaAuxiliar->obtenerCursor();
+    		profundidadAuxiliar->iniciarCursor();
+
+    			while(profundidadAuxiliar->avanzarCursor()){
+    				Celda* celdaAuxiliar = profundidadAuxiliar->obtenerCursor();
+    				Coordenadas* coordenadasCelda = celdaAuxiliar->obtenerCoordenadas();
+    				for (int i = -1; i <= 1; ++i) {
+						for (int j = -1; j <= 1; ++j) {
+							for (int k = -1; k <= 1; ++k) {
+								Celda* celdaVecina = this->buscarCelda(coordenadasCelda->obtenerX()+i,
+										coordenadasCelda->obtenerY()+j,coordenadasCelda->obtenerZ()+k);
+
+								celdaAuxiliar->guardarVecina(celdaVecina,i,j,k);
+							}
+						}
+					}
+    			}
+    	}
+    }
+
+
 };
 
 bool Tablero:: hayCeldasVacias(){
@@ -141,6 +178,7 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 
 bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno){
 
+	Colores* color = new Colores(50,50,50); //solo para probar, borrar despues
 	Lista<Celda*>* listaProfundidad =  this->obtenerFila()->obtener(coordenadaJugada->obtenerX())
 			->obtener(coordenadaJugada->obtenerY());
 
@@ -159,7 +197,8 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 			posicionVaciaNoEncontrada = false;
 
             //Ver como obtener Colores
-            Ficha* ficha = new Ficha(jugadorEnTurno.obtenerColor());
+			Ficha* ficha = new Ficha(color,jugadorEnTurno->obtenerFicha());//solo es de prueba,
+            //Ficha* ficha = new Ficha(jugadorEnTurno.obtenerColor()); //comentado para que compile
 
             //Nuevo metodo para colocar una Ficha
 			//listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
@@ -205,12 +244,31 @@ void Tablero:: borrarUltimaJugada(){
 
 bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 
+	int x = this->coordenadasDeUltimaCelda->obtenerX();
+	int y = this->coordenadasDeUltimaCelda->obtenerY();
+	int z = this->coordenadasDeUltimaCelda->obtenerZ();
+	Celda* celdaUltima = buscarCelda(x,y,z);
+
+	int contadorDeLineaGanadora = 1;
+
+	for (int i = -1; i <=1; ++i) {
+		for (int j = -1; j <= 1; ++j) {
+			for (int k = -1; k <= 1; ++k) {
+				Celda* celdaVecina = celdaUltima->obtenerVecina(i,j,k);
+				if (celdaUltima->obtenerFicha()->
+						valoresFichaIguales(celdaVecina->obtenerFicha()->obtenerValorDeLaFicha())){
+					contadorDeLineaGanadora++;
+				}
+			}
+		}
+	}
+
 	return true;
 }
 
 bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha){
 
-	//Jugador jugadorEnTurno(2).;
+	//Jugador jugadorEnTurno(2);
 	unsigned int cantidadElementosEnUso =this->obtenerFila()->obtener(fila)->obtener(columna)->contarElementos();
 
 	if (cantidadElementosEnUso < this->obtenerNumeroDeProfundidad()) {
@@ -220,9 +278,15 @@ bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha)
 	return false;
 }
 
-Celda* Tablero::buscarCelda(Coordenadas* coordenadas){
-	return this->obtenerFila()->obtener(coordenadas->obtenerX())->
-			obtener(coordenadas->obtenerY())->obtener(coordenadas->obtenerZ());
+Celda* Tablero::buscarCelda(int x, int y, int z){
+	Celda* celda = NULL;
+	if (( 1 <= x && x < this->obtenerNumeroDeFila() ) &&
+			(1 <= y && y < this->obtenerNumeroDeColumna()) && 1 <= z &&
+							z < this->obtenerNumeroDeProfundidad()) {//muy largo, despues arreglar
+
+		celda = this->obtenerFila()->obtener(x)->obtener(y)->obtener(z);
+	}
+	return celda;
 }
 
 Tablero::~Tablero() {
