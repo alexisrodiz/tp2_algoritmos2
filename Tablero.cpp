@@ -249,21 +249,43 @@ bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 	int z = this->coordenadasDeUltimaCelda->obtenerZ();
 	Celda* celdaUltima = buscarCelda(x,y,z);
 
-	int contadorDeLineaGanadora = 1;
+	unsigned int contadorDeLineaGanadora[3][3][3];
+
+	for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < 3; ++j) {
+			for (int k = 0; k < 3; ++k) {
+				contadorDeLineaGanadora[i][j][k] = 1;
+			}
+		}
+	}
 
 	for (int i = -1; i <=1; ++i) {
 		for (int j = -1; j <= 1; ++j) {
 			for (int k = -1; k <= 1; ++k) {
 				Celda* celdaVecina = celdaUltima->obtenerVecina(i,j,k);
-				if (celdaUltima->obtenerFicha()->
+
+				while (celdaUltima->obtenerFicha()->
 						valoresFichaIguales(celdaVecina->obtenerFicha()->obtenerValorDeLaFicha())){
-					contadorDeLineaGanadora++;
+
+					contadorDeLineaGanadora[i+1][j+1][k+1]++;
+					celdaVecina = celdaVecina->obtenerVecina(i,j,k);
 				}
 			}
 		}
 	}
 
-	return true;
+	for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < 3; ++j) {
+			for (int k = 0; k < 3; ++k) {
+				if (contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] >=
+						this->obtenerLongitudLineaGanadora()) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 }
 
 bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha){

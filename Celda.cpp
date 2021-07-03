@@ -44,9 +44,7 @@ char Celda::obtenerValorDeCelda() {
 
 void Celda::cambiarEstadoDeCelda() {
 
-    bool estadoDelaCelda = obtenerEstaVacia();
-    estadoDelaCelda = !estaVacia;
-
+	this->estaVacia = !this->estaVacia;
 }
 
 bool Celda::obtenerEstaVacia() {
