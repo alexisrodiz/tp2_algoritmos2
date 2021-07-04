@@ -175,6 +175,12 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 
 };
 
+unsigned int Tablero::obtenerLongitudLineaGanadora(){
+
+	return this->longitudDeLineaGanadora;
+}
+
+
 
 bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno){
 
