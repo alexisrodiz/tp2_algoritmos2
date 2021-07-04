@@ -8,7 +8,7 @@ class Ficha {
     private:
     
         Colores* colorDeLaFicha;
-        char valorDeLaFicha;
+        char* valorDeLaFicha;
 
     public:
 
@@ -25,7 +25,7 @@ class Ficha {
         /* Pre: 
         *  Pos: Retorna el valor de la ficha
         */
-        char obtenerValorDeLaFicha();
+        char* obtenerValorDeLaFicha();
 
         /* Pre: 
         *  Pos: Destruye la Ficha

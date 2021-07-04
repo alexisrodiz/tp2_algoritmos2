@@ -3,8 +3,8 @@
 Ficha::Ficha(Colores* colorDeLaFicha, char valorDeLaFicha) {
 
     this->colorDeLaFicha = colorDeLaFicha;
-    this->valorDeLaFicha = valorDeLaFicha;
-
+    this->valorDeLaFicha = new char[1];
+    *this->valorDeLaFicha = valorDeLaFicha;
 }
 
 Colores* Ficha::obtenerColorDeLaFicha() {
@@ -13,14 +13,14 @@ Colores* Ficha::obtenerColorDeLaFicha() {
 
 }
 
-char Ficha::obtenerValorDeLaFicha() {
+char* Ficha::obtenerValorDeLaFicha() {
 
     return this->valorDeLaFicha;
 
 }
 
 bool Ficha::valoresFichaIguales(char valorFicha){
-	return valorFicha == this->valorDeLaFicha;
+	return valorFicha == *this->valorDeLaFicha;
 }
 
 
