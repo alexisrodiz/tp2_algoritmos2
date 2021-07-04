@@ -39,7 +39,7 @@ void Celda::vaciarCelda() {
 
 char Celda::obtenerValorDeCelda() {
 
-    return obtenerEstaVacia() ? (char)' ' : obtenerFicha()->obtenerValorDeLaFicha();
+    return obtenerEstaVacia() ? (char)' ' : *obtenerFicha()->obtenerValorDeLaFicha();
 
 }
 
