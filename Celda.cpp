@@ -23,8 +23,9 @@ Ficha* Celda::obtenerFicha() {
 
 void Celda::colocarFicha(Ficha* fichaDeJugador) {
 
-    Ficha* ficha = obtenerFicha();
-    ficha = fichaDeJugador;
+    //Ficha* ficha = obtenerFicha();
+    //ficha = fichaDeJugador;
+    this->ficha = fichaDeJugador;
 
 }
 
