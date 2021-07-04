@@ -152,13 +152,20 @@ class Tablero {
         */
         unsigned int obtenerNumeroDeProfundidad();
         
+        /*Pre:
+         *Post: Retorna la longitud de linea ganadora
+         */
+
+        unsigned int obtenerLongitudLineaGanadora();
+
+
         /*
          *Pre: coordenadas->obtenerX(), coordenadas->obtenerX(), coordenadas->obtenerX()
          *en el rango de las dimensiones del tablero respectivas
          *Post: devuelve el puntero a la celda cuyas "coordenadas" ingresaron como parametro
          */
 
-        Celda* buscarCelda(int x, int y, int z);
+        Celda* buscarCelda(unsigned int x, unsigned int y, unsigned int z);
         																																					/* Pre:
         *  Pos: Destruye el tablero
         */

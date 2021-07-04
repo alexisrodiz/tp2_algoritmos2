@@ -175,6 +175,12 @@ unsigned int Tablero::obtenerNumeroDeProfundidad() {
 
 };
 
+unsigned int Tablero::obtenerLongitudLineaGanadora(){
+
+	return this->longitudDeLineaGanadora;
+}
+
+
 
 bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno){
 
@@ -300,11 +306,11 @@ bool Tablero:: agregarFicha(unsigned int fila, unsigned int columna, char ficha)
 	return false;
 }
 
-Celda* Tablero::buscarCelda(int x, int y, int z){
+Celda* Tablero::buscarCelda(unsigned int x, unsigned int y, unsigned int z){
 	Celda* celda = NULL;
-	if (( 1 <= x && x < this->obtenerNumeroDeFila() ) &&
-			(1 <= y && y < this->obtenerNumeroDeColumna()) && 1 <= z &&
-							z < this->obtenerNumeroDeProfundidad()) {//muy largo, despues arreglar
+	if (( 1 <= x && x <= this->obtenerNumeroDeFila() ) &&
+			(1 <= y && y <= this->obtenerNumeroDeColumna()) && 1 <= z &&
+							z <= this->obtenerNumeroDeProfundidad()) {//muy largo, despues arreglar
 
 		celda = this->obtenerFila()->obtener(x)->obtener(y)->obtener(z);
 	}
