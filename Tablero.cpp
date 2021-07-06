@@ -181,7 +181,6 @@ unsigned int Tablero::obtenerLongitudLineaGanadora(){
 }
 
 
-
 bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurno){
 
 	Colores* color = new Colores(50,50,50); //solo para probar, borrar despues
@@ -214,7 +213,7 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 			huboEspacioParaAgregarFicha = true;
 			this->coordenadasDeUltimaCelda->guardarX(coordenadaJugada->obtenerX());
 			this->coordenadasDeUltimaCelda->guardarY(coordenadaJugada->obtenerY());
-			this->coordenadasDeUltimaCelda->guardarZ(coordenadaJugada->obtenerZ());
+			this->coordenadasDeUltimaCelda->guardarZ(posicionCelda);
 
 			this->cantidadDeCeldasVacias--;
 		}
@@ -270,7 +269,12 @@ bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 			for (int k = -1; k <= 1; ++k) {
 				Celda* celdaVecina = celdaUltima->obtenerVecina(i,j,k);
 
-				while (celdaUltima->obtenerFicha()->
+				/*Recordar que las celdas* celdas vecinas que esta fuera del tablero estan seteadas con NULL
+				 *desde el constructor.
+				 *Ademas aquellas celdas dentro del tablero que aun no fueron marcadas con una ficha
+				 *contienen un Ficha* seteado en NULL.
+				 */
+				while (celdaVecina!= NULL && celdaVecina->obtenerFicha()!= NULL && celdaUltima->obtenerFicha()->
 						valoresFichaIguales(celdaVecina->obtenerFicha()->obtenerValorDeLaFicha())){
 
 					contadorDeLineaGanadora[i+1][j+1][k+1]++;
@@ -283,8 +287,9 @@ bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < 3; ++j) {
 			for (int k = 0; k < 3; ++k) {
-				if (contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] >=
+				if ((contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] - 1) >=
 						this->obtenerLongitudLineaGanadora()) {
+					std::cout << "longitud linea ganadora: " <<contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] - 1;
 					return true;
 				}
 			}
