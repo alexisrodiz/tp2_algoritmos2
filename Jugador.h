@@ -1,13 +1,12 @@
 #ifndef JUGADOR_H_
 #define JUGADOR_H_
 
-//#include "Jugadores.h"
 #include <vector>
 #include "Carta.h"
 #include "Lista.h"
 #include "Mazo.h"
 #include "Coordenadas.h"
-
+#include "Ficha.h"
 
 
 
@@ -18,15 +17,15 @@ private:
 
 	Lista<Carta*>* cartas;
 
-	int cantidadFichas;
+	Ficha* ficha;
 
-	char fichaAsignada;
+	int cantidadFichas;
 
 	std::string nombre;
 
 	int cantidadMaximaCartas;
 
-		/*
+	/*
 	 * pre: tener cartas
 	 * Post: devuelve la lista de cartas que tiene el jugador
 	 */
@@ -35,7 +34,7 @@ private:
 
 public:
 
-	Jugador(std::string nombre, char ficha, int numeroJugador);
+	Jugador(std::string nombre, Ficha* ficha, int numeroJugador);
 
 	/*
 	 * Pre: existir mazo
@@ -78,7 +77,7 @@ public:
 	/*
 	 * Post: devuelve la ficha que eligió el jugador
 	 */
-	char obtenerFicha();
+	Ficha* obtenerFicha();
 
 	/*
 	 * pre: Tener fichas

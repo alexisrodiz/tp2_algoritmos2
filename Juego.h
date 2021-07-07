@@ -1,12 +1,15 @@
 #ifndef JUEGO_H_
 #define JUEGO_H_
 
-#include <vector>
 #include "Tablero.h"
 #include "Jugador.h"
 #include "Lista.h"
 #include "Mazo.h"
 #include "Coordenadas.h"
+#include "EasyBMP_BMP.h"
+#include "ExportarTableroBMP.h"
+#include "Colores.h"
+#include "Ficha.h"
 
 
 class Juego {
@@ -15,9 +18,13 @@ class Juego {
 
     Tablero* tablero;
 
-    std::vector<char> fichasUtilizadas;
+    ExportarTableroBMP* exportarTablero;
 
     Lista<Jugador *>* jugadores;
+
+    Lista<Ficha*>* fichasUtilizadas;
+
+    Lista<Colores*>* coloresGenerados;
 
     Mazo* mazo;
 
@@ -48,9 +55,15 @@ class Juego {
     /*
     * pre: jugadores crados
     * post: calcula la cantidad de fichas que deberia devolver un jugador en base a un
-    * porcentaje fijado
+    * porcentaje fijado, cuando usan en su contra la carta "Devolver fichas"
     */
     int calcularCantidadFichasADevolverJugador();
+
+/*
+    * pre: jugadores crados
+    * post: chequea si el valor de la ficha ya fue utilizada en el juego
+    */
+    bool verificarFichaValorFueUtilizada(char ficha);
 
 
     /*

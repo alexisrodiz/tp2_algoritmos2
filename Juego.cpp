@@ -2,47 +2,68 @@
 #include <algorithm>    // std::find
 #include <iomanip>      // std::setw
 #include <cmath>
+#include <string>
 #include "Juego.h"
-#include "Jugador.h"
-#include "Coordenadas.h"
+/*#include "Jugador.h"
+#include "Coordenadas.h"*/
 
 using namespace std;
 
 Juego::Juego(){
 
-    jugadores = new Lista<Jugador*>;
+    this->jugadores = new Lista<Jugador*>;
 
-    mazo = new Mazo;
+    this->mazo = new Mazo;
+
+    this->exportarTablero = new ExportarTableroBMP(640, 480, 8, 5, 5, this->tablero);
 
     this->porcentajeQuitarFichas = 5;
 
     this->cantidadFichasADevolverJugador = this->calcularCantidadFichasADevolverJugador();
 
+    this->fichasUtilizadas = new Lista<Ficha*>;
+}
+
+bool Juego::verificarFichaValorFueUtilizada(char fichaValor){
+    this->fichasUtilizadas->iniciarCursor();
+    while(this->fichasUtilizadas->avanzarCursor()){
+        if(this->fichasUtilizadas->obtenerCursor()->obtenerValorDeLaFicha() == fichaValor){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Juego::agregarJugadores(){
     int i = 1;
     char agregarOtroJugador;
     string nombre;
-    char ficha;
-    bool fichaExiste;
+    char cinFicha;
+    bool fichaFueUtilizada;
     do {
         cout << "Por favor ingrese el nombre del jugador " << i <<  endl;
+
         cin >> nombre;
         
         do { // Pide una ficha mientras exista en la lista de ficha ya utilizadas
             cout << "Por favor, elija una ficha (letra)" << endl;
-            cin >> ficha;
+            
+            cin >>  cinFicha;
 
-            fichaExiste = (std::find(fichasUtilizadas.begin(), fichasUtilizadas.end(), ficha) != fichasUtilizadas.end());
-            if (fichaExiste){
-                cout << "La ficha elegida ya existe, por favor elija otra" << endl;
+            fichaFueUtilizada = this->verificarFichaValorFueUtilizada(cinFicha);
+            if (fichaFueUtilizada){
+                cout << "La ficha elegida ya fue utilizada, por favor elija otra" << endl;
             }
             
 
-        } while ( fichaExiste );
-        
-        fichasUtilizadas.push_back(ficha);
+        } while ( fichaFueUtilizada );
+
+       // ver de generar colores aleatorios para cada jugador
+        Colores* color = new Colores(50,50,50);
+
+        Ficha* ficha = new Ficha(color, cinFicha); 
+
+        this->fichasUtilizadas->agregar(ficha);
         
         Jugador * jugador = new Jugador(nombre, ficha, i);
             
@@ -51,7 +72,7 @@ void Juego::agregarJugadores(){
         // Si ya se agregaron 2 jugadores, pregunto si se quieren agregar mas
         if (i >= 2) {
             cout << "Desea agregar otro jugador? S: SI, N: NO" << endl;
-            cin >> setw(1) >> agregarOtroJugador;
+            cin >> agregarOtroJugador;
         }
         
         ++i;
@@ -209,6 +230,8 @@ void Juego::iniciar(){
         while(jugadaMarcada == false);
 
         this->tablero->mostrarTablero();
+
+        //this->exportarTablero->exportarTableroXY();
 
         jugadorGano = this->tablero->jugadorGano(jugadorActual);
 

@@ -6,12 +6,13 @@ using namespace std;
 
 
 
-Jugador::Jugador(string nombre, char ficha, int numeroJugador) {
+Jugador::Jugador(std::string nombre, Ficha* ficha, int numeroJugador) {
 	this->cartas = new Lista<Carta*>;
-	this->fichaAsignada = ficha;
+	this->ficha = ficha;
 	this->nombre = nombre;
 	this->idJugador = numeroJugador;
 	this->cantidadMaximaCartas = 3;
+	
 }
 
 void Jugador::sacarCartaMazo(Mazo* mazo) {
@@ -47,8 +48,8 @@ string Jugador::obtenerNombre(){
 	return this->nombre;
 }
 
-char Jugador::obtenerFicha(){
-	return this->fichaAsignada;
+Ficha* Jugador::obtenerFicha(){
+	return this->ficha;
 }
 
 void Jugador::imprimirCartasEnMano(){
