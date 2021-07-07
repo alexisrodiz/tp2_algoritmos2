@@ -357,19 +357,38 @@ Celda* Tablero::buscarCelda(unsigned int x, unsigned int y, unsigned int z){
 	return celda;
 }
 
-Plano* Tablero::mostrarPlanoXY(){
+Plano* Tablero::generarPlanoXY(int z){
 
 	Plano* plano = new Plano(this->obtenerNumeroDeFila(), this->obtenerNumeroDeColumna());
 
 	for (unsigned int i = this->obtenerNumeroDeFila(); i >=1 ; --i) {
 		for (unsigned int j = 1; j <= this->obtenerNumeroDeColumna(); ++j) {
 
-			Celda* celda = this->buscarCelda(i,j,1);
+			Celda* celda = this->buscarCelda(i,j,z);
 			if(celda->obtenerFicha() != NULL){
 				plano->guardarValor(i,j,celda->obtenerFicha()->obtenerValorDeLaFicha());
 			}
 				else{
 					plano->guardarValor(i,j,' ');
+				}
+		}
+	}
+	return plano;
+}
+
+Plano* Tablero::generarPlanoYZ(int x){
+
+	Plano* plano = new Plano(this->obtenerNumeroDeColumna(), this->obtenerNumeroDeProfundidad());
+
+	for (unsigned int j = this->obtenerNumeroDeColumna(); j >=1 ; --j) {
+		for (unsigned int k = 1; k <= this->obtenerNumeroDeProfundidad(); ++k) {
+
+			Celda* celda = this->buscarCelda(x,j,k);
+			if(celda->obtenerFicha() != NULL){
+				plano->guardarValor(x,j,celda->obtenerFicha()->obtenerValorDeLaFicha());
+			}
+				else{
+					plano->guardarValor(x,j,' ');
 				}
 		}
 	}

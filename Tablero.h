@@ -171,7 +171,7 @@ class Tablero {
 
 
         /*Pre: Tablero creado.
-         *Post: Crea y devuelve un puntero a Plano Z = 1, este plano es una representacion de un plano del tablero
+         *Post: Crea y devuelve un puntero a Plano con un z elegido, este plano es una representacion de un plano del tablero
          *con Z = 1 unicamente muestra los caracteres que representan a las fichas de los jugadores, y muestra
          *caracteres vacio/s ' ' en aquellas posiciones en donde no hay fichas.
          *
@@ -181,7 +181,20 @@ class Tablero {
          *     .
          *     (1,1)....................(1,8)   todo en el plano z = 1
          */
-        Plano* mostrarPlanoXY();
+        Plano* generarPlanoXY(int z);
+
+        /*Pre: Tablero creado.
+         *Post: Crea y devuelve un puntero a Plano con un x elegido, este plano es una representacion de un plano del tablero
+         *con Z = 1 unicamente muestra los caracteres que representan a las fichas de los jugadores, y muestra
+         *caracteres vacio/s ' ' en aquellas posiciones en donde no hay fichas.
+         *
+         *El sistema de coordenadas es (y,z)
+         *     (8,1)....................(8,8)
+         *     .
+         *     .
+         *     (1,1)....................(1,8)   todo en el plano z = 1
+         */
+        Plano* generarPlanoYZ(int x);
         																																					/* Pre:
         *  Pos: Destruye el tablero
         */
