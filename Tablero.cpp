@@ -1,6 +1,7 @@
 #include "Tablero.h"
 #include "Ficha.h"
 #include <iostream>
+#include "Plano.h"
 
 Tablero::Tablero(unsigned int fila, unsigned int columna, unsigned int profundidad,
 		unsigned int longitudLineaGanadora) {
@@ -106,11 +107,11 @@ void Tablero::mostrarTableroXY() {
             
             Lista<Celda*>* profundidad = columna->obtenerCursor();
             profundidad->iniciarCursor();
-            profundidad->avanzarCursor();
+            while (profundidad->avanzarCursor() || profundidad->obtenerCursor()->obtenerValorDeCelda()!= ' '){
 
-            std::cout << " | ";
-            std::cout << profundidad->obtenerCursor()->obtenerValorDeCelda() << " | ";
-
+            	std::cout << " | ";
+            	std::cout << profundidad->obtenerCursor()->obtenerValorDeCelda() << " | ";
+            };
         };
         
         std::cout << std::endl;
@@ -284,17 +285,51 @@ bool Tablero::jugadorGano(Jugador* jugadorEnTurno){
 		}
 	}
 
-	for (int i = 0; i < 3; ++i) {
-		for (int j = 0; j < 3; ++j) {
-			for (int k = 0; k < 3; ++k) {
-				if ((contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] - 1) >=
-						this->obtenerLongitudLineaGanadora()) {
-					std::cout << "longitud linea ganadora: " <<contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[k][j][i] - 1;
+	for (int i = 0; i <= 2; ++i) {
+		for (int j = 0; j <=2; ++j) {
+			for (int k = 0; k <=2; ++k) {
+
+				if ((contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[2-i][2-j][2-k] - 1)
+						>= this->obtenerLongitudLineaGanadora()) {
+					std::cout << "longitud linea ganadora: "
+							<<contadorDeLineaGanadora[i][j][k] + contadorDeLineaGanadora[2-i][2-j][2-k] - 1<<std::endl;
+					std::cout <<contadorDeLineaGanadora[i][j][k] <<std::endl;
+					std::cout <<contadorDeLineaGanadora[2-i][2-j][2-k] <<std::endl;
+
+					std::cout <<std::endl;
+						std::cout <<std::endl;
+
+						std::cout <<"cara x = 0"<< std::endl;
+						for (int j = 0; j < 3; ++j) {
+							for (int k = 0; k < 3; ++k) {
+								std::cout <<contadorDeLineaGanadora[0][j][k] <<" ";
+							}
+							std::cout << std::endl;
+						}
+
+						std::cout <<"cara x = 1"<< std::endl;
+						for (int j = 0; j < 3; ++j) {
+							for (int k = 0; k < 3; ++k) {
+								std::cout <<contadorDeLineaGanadora[1][j][k] <<" ";
+							}
+							std::cout << std::endl;
+						}
+
+						std::cout <<"cara x = 0"<< std::endl;
+						for (int j = 0; j < 3; ++j) {
+							for (int k = 0; k < 3; ++k) {
+								std::cout <<contadorDeLineaGanadora[2][j][k] <<" ";
+							}
+							std::cout << std::endl;
+						}
+
+
 					return true;
 				}
 			}
 		}
 	}
+
 
 	return false;
 }
@@ -322,6 +357,25 @@ Celda* Tablero::buscarCelda(unsigned int x, unsigned int y, unsigned int z){
 	return celda;
 }
 
+Plano* Tablero::mostrarPlanoXY(){
+
+	Plano* plano = new Plano(this->obtenerNumeroDeFila(), this->obtenerNumeroDeColumna());
+
+	for (unsigned int i = this->obtenerNumeroDeFila(); i >=1 ; --i) {
+		for (unsigned int j = 1; j <= this->obtenerNumeroDeColumna(); ++j) {
+
+			Celda* celda = this->buscarCelda(i,j,1);
+			if(celda->obtenerFicha() != NULL){
+				plano->guardarValor(i,j,celda->obtenerFicha()->obtenerValorDeLaFicha());
+			}
+				else{
+					plano->guardarValor(i,j,' ');
+				}
+		}
+	}
+	return plano;
+}
+
 Tablero::~Tablero() {
 
     for (unsigned int x = 1; x <= this->numeroDeColumna; x++) {
@@ -346,3 +400,14 @@ Tablero::~Tablero() {
     delete[] obtenerFila();
 
 };
+
+
+
+
+
+
+
+
+
+
+

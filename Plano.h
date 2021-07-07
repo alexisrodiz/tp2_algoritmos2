@@ -3,16 +3,15 @@
 #define SRC_PLANO_H_
 #include "Coordenadas.h"
 /*Un plano es una estructura que representa una agrupacion de elementos en una distribucion plana,
- *cada elemento solo admite dos estados "true", "false", el plano se caracteriza por su largo y ancho,
- *cada el plano se crea con cada elemento en estado "false"
+ *cada elemento es del tipo char, el plano se caracteriza por su largo y ancho,
+ *el plano se crea con cada elemento con valor ' '
  */
-
 
 class Plano{
 
 	private:
 
-	bool** plano;
+	char** plano;
 	int columnas;
 	int filas;
 	//Coordenadas coordenadasElementoRaiz; //elemento raiz a partir del cual se analiza si el jugador gano
@@ -21,18 +20,20 @@ class Plano{
 	 * Pre: largo > 0, ancho > 0
 	 * Post: TDA Plano creado, con parametros: largo, ancho, y todos sus elementos en estado "false"
 	 */
-	Plano(int filas, int columnas);
+
+	public:
+	Plano(unsigned int filas, unsigned int columnas);
 
 	/*
 	 * Pre:
 	 * Post:
 	 */
-	bool obtenerValor(int coordenadaX, int coordenadaY);
+	char obtenerValor(int coordenadaX, int coordenadaY);
 	/*
 	 *Pre: coordenadaX > 0, coordenadaY > 0
 	 *Post:
 	 */
-	void guardarValor(int coordenadaX, int coordenadaY, bool nuevoValor);
+	void guardarValor(int coordenadaX, int coordenadaY, char nuevoValor);
 
 	/*Pre: Existe el TDA plano
 	 *Post: Libera los recursos del sistema

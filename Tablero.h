@@ -5,6 +5,8 @@
 #include "Jugador.h"
 #include "Celda.h"
 #include "Coordenadas.h"
+#include "Plano.h"
+
 
 class Tablero {
 
@@ -166,6 +168,20 @@ class Tablero {
          */
 
         Celda* buscarCelda(unsigned int x, unsigned int y, unsigned int z);
+
+
+        /*Pre: Tablero creado.
+         *Post: Crea y devuelve un puntero a Plano Z = 1, este plano es una representacion de un plano del tablero
+         *con Z = 1 unicamente muestra los caracteres que representan a las fichas de los jugadores, y muestra
+         *caracteres vacio/s ' ' en aquellas posiciones en donde no hay fichas.
+         *
+         *El sistema de coordenadas es (x,y)
+         *     (8,1)....................(8,8)
+         *     .
+         *     .
+         *     (1,1)....................(1,8)   todo en el plano z = 1
+         */
+        Plano* mostrarPlanoXY();
         																																					/* Pre:
         *  Pos: Destruye el tablero
         */
