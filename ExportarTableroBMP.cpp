@@ -21,18 +21,18 @@ ExportarTableroBMP::ExportarTableroBMP(
     this->alturaFicha = 15;
     this->imagen.SetSize(this->ancho, this->alto);
     this->imagen.SetBitDepth(this->profundidadColor);
-
+    this->filaTablero = new Lista< Lista< Lista<Celda*>* >* >();
 }
 
 void ExportarTableroBMP::exportarTableroXY(){
     Ficha* ficha;
     RGBApixel color; // ver de usar ficha->obtenerColorDeLaFicha()
     color.Red = 50; color.Green = 50; color.Blue = 192; color.Alpha = 0;
-    Lista< Lista< Lista<Celda*>* >* >* fila = this->tablero->obtenerFila();
-    fila->iniciarCursor();
-    while (fila->avanzarCursor()) {
+    this->filaTablero = this->tablero->obtenerFila();
+    this->filaTablero->iniciarCursor();
+    while (this->filaTablero->avanzarCursor()) {
         
-        Lista< Lista<Celda*>* >* columna = fila->obtenerCursor();
+        Lista< Lista<Celda*>* >* columna = this->filaTablero->obtenerCursor();
         columna->iniciarCursor();
         while (columna->avanzarCursor()) {
             

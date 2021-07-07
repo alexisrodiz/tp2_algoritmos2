@@ -8,6 +8,7 @@
 #include "Tablero.h"
 #include "Coordenadas.h"
 #include "Ficha.h"
+#include "Celda.h"
 
 class ExportarTableroBMP{
     private:
@@ -20,6 +21,7 @@ class ExportarTableroBMP{
     unsigned int alturaFicha;
     std::string nombreArchivo;
     BMP imagen;
+    Lista< Lista< Lista<Celda*>* >* >* filaTablero;
     Tablero* tablero;
 
     public:

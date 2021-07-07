@@ -165,7 +165,7 @@ void Juego::iniciar(){
 
     bool jugadorGano = false;
 
-    this->tablero->mostrarTablero();
+    //this->tablero->mostrarTablero();
 
     this->agregarJugadores();
 
@@ -229,9 +229,10 @@ void Juego::iniciar(){
         }
         while(jugadaMarcada == false);
 
-        this->tablero->mostrarTablero();
+        this->exportarTablero->exportarTableroXY();
 
-        //this->exportarTablero->exportarTableroXY();
+        //this->tablero->mostrarTablero();
+        
 
         jugadorGano = this->tablero->jugadorGano(jugadorActual);
 
