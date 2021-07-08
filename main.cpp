@@ -3,7 +3,7 @@
 
 int main() {
 
-    Juego* juego = new Juego;
+    Juego* juego = new Juego();
 
     juego->iniciar();
 

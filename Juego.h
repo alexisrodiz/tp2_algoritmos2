@@ -89,6 +89,11 @@ class Juego {
     void agregarTablero();
 
     /*
+    * post: Recorre la lista de jugadores y si llega al final, la inicia de nuevo
+    */
+    void recorrerListaDeJugadores();
+
+    /*
     * pre: recibe una instancia de tablero como parametro
     * post: Inicia el Juego
     */

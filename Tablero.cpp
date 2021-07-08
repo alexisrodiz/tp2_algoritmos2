@@ -203,12 +203,12 @@ bool Tablero::marcarJugada(Coordenadas* coordenadaJugada, Jugador* jugadorEnTurn
 			posicionVaciaNoEncontrada = false;
 
             //Ver como obtener Colores
-			Ficha* ficha = new Ficha(color,jugadorEnTurno->obtenerFicha());//solo es de prueba,
+			//Ficha* ficha = new Ficha(color,jugadorEnTurno->obtenerFicha());//solo es de prueba,
             //Ficha* ficha = new Ficha(jugadorEnTurno.obtenerColor()); //comentado para que compile
 
             //Nuevo metodo para colocar una Ficha
 			//listaProfundidad->obtener(posicionCelda)->cambiarValorDeCelda(jugadorEnTurno->obtenerFicha());
-            listaProfundidad->obtener(posicionCelda)->colocarFicha(ficha);
+            listaProfundidad->obtener(posicionCelda)->colocarFicha(jugadorEnTurno->obtenerFicha());
 			listaProfundidad->obtener(posicionCelda)->cambiarEstadoDeCelda();
 
 			huboEspacioParaAgregarFicha = true;

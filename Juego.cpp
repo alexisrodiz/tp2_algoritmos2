@@ -164,6 +164,13 @@ void Juego::agregarTablero(){
     
 };
 
+void Juego::recorrerListaDeJugadores(){
+    if(this->jugadores->avanzarCursor() == false){
+        this->jugadores->iniciarCursor();
+        this->jugadores->avanzarCursor();
+    }
+}
+
 void Juego::iniciar(){
     cout << "Iniciando juego..." << endl;
 
@@ -180,11 +187,13 @@ void Juego::iniciar(){
     Jugador* jugadorActual = NULL;
 
     // Ver tema de lista circular para recorrer los jugadores
-    while(this->jugadores->avanzarCursor() && jugadorGano == false){
+    while(jugadorGano == false){
         bool jugadaMarcada;
         int valorCartaJugada;
         char usarCartas;
         bool tieneCartaSeleccionada;
+
+        this->recorrerListaDeJugadores();
 
         Coordenadas* coordenadaJugada = NULL;
 
@@ -249,7 +258,6 @@ void Juego::iniciar(){
     }
 
 }
-
 
 void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){
     int idJugador;
