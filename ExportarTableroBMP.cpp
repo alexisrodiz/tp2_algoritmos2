@@ -47,9 +47,11 @@ void ExportarTableroBMP::exportarTableroXY(){
                 //verificar que se obtiene la ultima celda apilada en Z
             }
 
-            ficha = celda->obtenerFicha();
+            //ficha = celda->obtenerFicha();
             char* letra = new char;
-            letra[0] = ficha->obtenerValorDeLaFicha();
+            //letra[0] = ficha->obtenerValorDeLaFicha();
+            letra[0] = celda->obtenerValorDeCelda();
+
             PrintString(this->imagen,
                         letra, 
                         profundidad->obtenerCursor()->obtenerCoordenadas()->obtenerX(),

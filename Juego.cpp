@@ -15,7 +15,11 @@ Juego::Juego(){
 
     this->mazo = new Mazo;
 
-    this->exportarTablero = new ExportarTableroBMP(640, 480, 8, 5, 5, this->tablero);
+    //this->exportarTablero = new ExportarTableroBMP(640, 480, 8, 5, 5, this->tablero);
+
+    this->tablero = NULL;
+
+    this->exportarTablero = NULL;
 
     this->porcentajeQuitarFichas = 5;
 
@@ -155,6 +159,8 @@ void Juego::agregarTablero(){
     Tablero* tablero = new Tablero(x, y, z, minimo);
 
     this->tablero = tablero;
+
+    this->exportarTablero = new ExportarTableroBMP(640, 480, 8, 5, 5, this->tablero);
     
 };
 
