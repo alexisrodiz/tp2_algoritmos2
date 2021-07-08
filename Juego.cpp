@@ -246,7 +246,7 @@ void Juego::iniciar(){
 
 }
 
-bool Juego::inicarJugada(Jugador* jugadorActual){
+void Juego::inicarJugada(Jugador* jugadorActual){
     int x, y;
     bool jugadaMarcada;
     Coordenadas* coordenadaJugada = NULL;
@@ -278,6 +278,7 @@ bool Juego::inicarJugada(Jugador* jugadorActual){
             
     }
     while(jugadaMarcada == false);
+
 }
 
 void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){

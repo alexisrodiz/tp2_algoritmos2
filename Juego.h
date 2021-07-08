@@ -68,7 +68,7 @@ class Juego {
     /*
     * post: Chequea que las coordenadas sean validas y si es asi marca el tablero
     */
-    bool Juego::inicarJugada(Jugador* jugadorActual);
+    void inicarJugada(Jugador* jugadorActual);
 
     /*
     * pre: el jugador juega una carta
