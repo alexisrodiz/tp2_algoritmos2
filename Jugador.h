@@ -59,10 +59,9 @@ public:
 
 	/*
 	 * Pre:
-	 * Post: solicita al jugador las coordenadas para colocar su ficha.
-	 * Admite un parametro para personalizar el mensaje mostrado en pantalla
+	 * Post: Crea la coordenada de la jugada y la retorna
 	 */
-	Coordenadas* realizarJugada();
+	Coordenadas* realizarJugada(int x, int y);
 
 	/*
 	 * Post: devuelve el nombre del jugador

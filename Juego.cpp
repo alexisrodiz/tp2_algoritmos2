@@ -188,14 +188,11 @@ void Juego::iniciar(){
 
     // Ver tema de lista circular para recorrer los jugadores
     while(jugadorGano == false){
-        bool jugadaMarcada;
         int valorCartaJugada;
         char usarCartas;
         bool tieneCartaSeleccionada;
 
         this->recorrerListaDeJugadores();
-
-        Coordenadas* coordenadaJugada = NULL;
 
         Carta* cartaJugada = NULL;
 
@@ -233,22 +230,12 @@ void Juego::iniciar(){
 
         }
 
-        do {
-            coordenadaJugada = jugadorActual->realizarJugada();
-
-            jugadaMarcada = tablero->marcarJugada(coordenadaJugada, jugadorActual);
-            if (jugadaMarcada == false){
-                cout << "No hay espacio en las coordenadas seleccionadas, elija otras" << endl;
-            }
-            
-        }
-        while(jugadaMarcada == false);
+        this->inicarJugada(jugadorActual);
 
         this->exportarTablero->exportarTableroXY();
 
         //this->tablero->mostrarTablero();
         
-
         jugadorGano = this->tablero->jugadorGano(jugadorActual);
 
     }
@@ -257,6 +244,41 @@ void Juego::iniciar(){
         cout << "Ha ganado el jugador: " << jugadorActual->obtenerNombre() << endl;
     }
 
+}
+
+bool Juego::inicarJugada(Jugador* jugadorActual){
+    int x = -1;
+    int y = -1;
+    bool jugadaMarcada;
+    Coordenadas* coordenadaJugada = NULL;
+    do {
+
+        cout << "Indique una ubicacion para colocar la ficha: " << endl;
+            
+        cout << "Coordenada x : " << endl;
+        cin >> x;
+
+        if(x <= this->tablero->obtenerNumeroDeFila() && x > 0){
+            cout << "Coordenada y : " << endl;
+            cin >> y;
+            if(y <= this->tablero->obtenerNumeroDeColumna() && y > 0){
+                coordenadaJugada = jugadorActual->realizarJugada(x,y);
+
+                jugadaMarcada = tablero->marcarJugada(coordenadaJugada, jugadorActual);
+                if (jugadaMarcada == false){
+                    cout << "No hay espacio en las coordenadas seleccionadas, elija otras" << endl;
+                }
+
+            } else {
+                cout << "Por favor, elija una coordenada en 'y' válida" << endl;
+            }
+
+        } else {
+            cout << "Por favor, elija una coordenada en 'x' válida" << endl;
+        }
+            
+    }
+    while(jugadaMarcada == false);
 }
 
 void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){
@@ -270,8 +292,12 @@ void Juego::procesarCarta(Carta* cartaJugada, Jugador* jugadorActual){
         case 2:
             // Jugar doble 
             cout << "Jugando Doble!" << endl;
-            jugadorActual->realizarJugada();
-            cout << "Otra vez!" << endl;
+            for (int i = 2; i > 0; i--){
+                this->inicarJugada(jugadorActual);
+                if(i > 1){
+                    cout << "Otra vez!" << endl;
+                }
+            }
             break;
         case 3:
             // Deshacer ultima jugada 

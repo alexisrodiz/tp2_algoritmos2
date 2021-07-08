@@ -66,15 +66,7 @@ int Jugador::obtenerCantidadFichas(){
 	return this->obtenerCantidadFichas();
 }
 
-Coordenadas* Jugador::realizarJugada(){
-	int x, y ;
-
-	cout << "Indique una ubicacion para colocar la ficha: " << endl;
-	
-	cout << "Coordenada x : " << endl;
-	cin >> x;
-	cout << "Coordenada y : " << endl;
-	cin >> y;
+Coordenadas* Jugador::realizarJugada(int x, int y){
 
 	Coordenadas* coordenadas = new Coordenadas(x, y);
 

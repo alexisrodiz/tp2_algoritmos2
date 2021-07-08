@@ -59,12 +59,16 @@ class Juego {
     */
     int calcularCantidadFichasADevolverJugador();
 
-/*
+    /*
     * pre: jugadores crados
     * post: chequea si el valor de la ficha ya fue utilizada en el juego
     */
     bool verificarFichaValorFueUtilizada(char ficha);
-
+    
+    /*
+    * post: Chequea que las coordenadas sean validas y si es asi marca el tablero
+    */
+    bool Juego::inicarJugada(Jugador* jugadorActual);
 
     /*
     * pre: el jugador juega una carta
