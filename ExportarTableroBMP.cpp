@@ -11,7 +11,7 @@ ExportarTableroBMP::ExportarTableroBMP(
         unsigned int margenY,
         Tablero* tablero
         ) {
-    //BMP imagen;
+
     this->ancho = ancho;
     this->alto = alto;
     this->profundidadColor = profundidadColor;
@@ -33,10 +33,10 @@ void ExportarTableroBMP::exportarTableroXY(int id){
     char nombreArchivo[20];
     Ficha* ficha;
     sprintf(nombreArchivo, "tablero%i.bmp", id);
-    //cout << "archivo: " << nombreArchivo << endl;
+    
     RGBApixel colorLineas;
     colorLineas.Red = 0; colorLineas.Green = 0; colorLineas.Blue = 0; colorLineas.Alpha = 0;
-    RGBApixel color; // ver de usar ficha->obtenerColorDeLaFicha()
+    RGBApixel color; 
     color.Red = 50; color.Green = 50; color.Blue = 192; color.Alpha = 0;
     this->filaTablero = this->tablero->obtenerFila();
 

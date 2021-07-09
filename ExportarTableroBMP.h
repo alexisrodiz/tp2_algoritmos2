@@ -23,7 +23,6 @@ class ExportarTableroBMP{
     unsigned int alturaFicha;
     unsigned int anchoFicha;
     std::string nombreArchivo;
-    //BMP imagen;
     Lista< Lista< Lista<Celda*>* >* >* filaTablero;
     Tablero* tablero;
 
@@ -42,13 +41,14 @@ class ExportarTableroBMP{
         );
 
 
+    /*
+    * pre: existir el objeto Tablero
+    * post: Exporta el tablero en un archivo formato BMP. Vista superior
+    */
     void exportarTableroXY(int id);
 
 
-    void exportarTableroYZ();
 
-
-    void dibujarFicha(Coordenadas* coordenadas, Jugador* jugador);
     
 };
 

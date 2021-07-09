@@ -4,8 +4,6 @@
 #include <cmath>
 #include <string>
 #include "Juego.h"
-/*#include "Jugador.h"
-#include "Coordenadas.h"*/
 
 using namespace std;
 
@@ -14,8 +12,6 @@ Juego::Juego(){
     this->jugadores = new Lista<Jugador*>;
 
     this->mazo = new Mazo;
-
-    //this->exportarTablero = new ExportarTableroBMP(640, 480, 8, 5, 5, this->tablero);
 
     this->tablero = NULL;
 
@@ -179,15 +175,12 @@ void Juego::iniciar(){
 
     bool jugadorGano = false;
 
-    //this->tablero->mostrarTablero();
-
     this->agregarJugadores();
 
     this->jugadores->iniciarCursor();
 
     Jugador* jugadorActual = NULL;
 
-    // Ver tema de lista circular para recorrer los jugadores
     while(jugadorGano == false){
         int valorCartaJugada;
         char usarCartas;
@@ -234,8 +227,6 @@ void Juego::iniciar(){
         this->inicarJugada(jugadorActual);
 
         this->exportarTablero->exportarTableroXY(i);
-
-        //this->tablero->mostrarTablero();
         
         jugadorGano = this->tablero->jugadorGano(jugadorActual);
         ++i;
