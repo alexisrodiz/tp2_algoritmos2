@@ -172,6 +172,7 @@ void Juego::recorrerListaDeJugadores(){
 }
 
 void Juego::iniciar(){
+    int i = 0;
     cout << "Iniciando juego..." << endl;
 
     this->agregarTablero();
@@ -232,18 +233,18 @@ void Juego::iniciar(){
 
         this->inicarJugada(jugadorActual);
 
-        this->exportarTablero->exportarTableroXY();
+        this->exportarTablero->exportarTableroXY(i);
 
         //this->tablero->mostrarTablero();
         
         jugadorGano = this->tablero->jugadorGano(jugadorActual);
-
+        ++i;
     }
 
     if (jugadorGano){
         cout << "Ha ganado el jugador: " << jugadorActual->obtenerNombre() << endl;
     }
-
+    
 }
 
 void Juego::inicarJugada(Jugador* jugadorActual){

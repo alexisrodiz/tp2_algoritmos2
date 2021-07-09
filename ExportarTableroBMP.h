@@ -12,6 +12,8 @@
 
 class ExportarTableroBMP{
     private:
+    unsigned int paddingX;
+    unsigned int paddingY;
     unsigned int ancho;
     unsigned int alto;
     unsigned int profundidadColor;
@@ -19,8 +21,9 @@ class ExportarTableroBMP{
     unsigned int margenY;
     unsigned int distanciaEntreFichas;
     unsigned int alturaFicha;
+    unsigned int anchoFicha;
     std::string nombreArchivo;
-    BMP imagen;
+    //BMP imagen;
     Lista< Lista< Lista<Celda*>* >* >* filaTablero;
     Tablero* tablero;
 
@@ -39,7 +42,7 @@ class ExportarTableroBMP{
         );
 
 
-    void exportarTableroXY();
+    void exportarTableroXY(int id);
 
 
     void exportarTableroYZ();
